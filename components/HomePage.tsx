@@ -3,10 +3,9 @@ import { LazyVideo } from "./LazyVideo";
 import { optimizeCloudinary } from "../lib/utils";
 
 import { useState, useEffect, useRef } from 'react';
-import Link from 'next/link';
-import MobileMenu from './MobileMenu';
 import ResumeModal from './ResumeModal';
 import Footer from './Footer';
+import Navbar from './Navbar';
 
 
 
@@ -272,23 +271,7 @@ export default function HomePage() {
 
   return (
     <>
-      <header className="navbar-wrapper">
-        <nav className="navbar">
-          <Link href="/" className="logo" aria-label="Spaceborn home">
-            <img src="https://res.cloudinary.com/dq9x4mk1y/image/upload/v1782734333/spaceborn_assets/spaceborn-transparent-logo.png" alt="Spaceborn Logo" />
-          </Link>
-          <ul className="nav-links">
-            <li><a href="#platforms">PLATFORMS</a></li>
-            <li><a href="#simulation">SIMULATION</a></li>
-            <li><a href="#systems">SYSTEMS</a></li>
-            <li><a href="#thoth">THOTH</a></li>
-            <li><a href="https://khonsu.in" target="_blank" rel="noopener noreferrer">KHONSU</a></li>
-            <li><a href="#simulators-hub">COMPANY</a></li>
-          </ul>
-          <a href="#releases" className="btn font-mono desktop-only">UPCOMING RELEASES →</a>
-          <MobileMenu />
-        </nav>
-      </header>
+      <Navbar />
 
       <main>
         {/* Page 1: Hero */}

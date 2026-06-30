@@ -1,0 +1,105 @@
+import Link from 'next/link';
+import Navbar from './Navbar';
+import Footer from './Footer';
+
+type ContentSection = {
+  title: string;
+  items: string[];
+};
+
+type CtaBox = {
+  label: string;
+  buttonText: string;
+  href: string;
+};
+
+type CompanyPageLayoutProps = {
+  title: string;
+  subtitle?: string;
+  paragraphs: string[];
+  sections?: ContentSection[];
+  ctas?: CtaBox[];
+  relatedLinks?: { label: string; href: string }[];
+  children?: React.ReactNode;
+};
+
+export default function CompanyPageLayout({
+  title,
+  subtitle,
+  paragraphs,
+  sections,
+  ctas,
+  relatedLinks,
+  children,
+}: CompanyPageLayoutProps) {
+  return (
+    <>
+      <Navbar />
+
+      <main>
+        <section className="company-hero">
+          <h1 className="company-title font-ethno">{title}</h1>
+          {subtitle && (
+            <p className="company-subtitle font-inter">{subtitle}</p>
+          )}
+          {paragraphs.map((paragraph) => (
+            <p key={paragraph.slice(0, 40)} className="company-desc font-inter">
+              {paragraph}
+            </p>
+          ))}
+
+          {sections && sections.length > 0 && (
+            <div className="company-sections-grid">
+              {sections.map((section) => (
+                <div key={section.title} className="company-section-block">
+                  <h2 className="company-section-title font-inter">{section.title}</h2>
+                  <ul className="company-list font-inter">
+                    {section.items.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {ctas && ctas.length > 0 && (
+            <div className="partners-ctas-grid">
+              {ctas.map((cta) => (
+                <div key={cta.label} className="partner-cta-box">
+                  <span className="partner-cta-label font-inter">{cta.label}</span>
+                  {cta.href.startsWith('/') ? (
+                    <Link href={cta.href} className="btn font-mono">
+                      {cta.buttonText}
+                    </Link>
+                  ) : (
+                    <a href={cta.href} className="btn font-mono">
+                      {cta.buttonText}
+                    </a>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+
+          {relatedLinks && relatedLinks.length > 0 && (
+            <div className="company-related">
+              <h2 className="company-section-title font-inter">Related Pages</h2>
+              <ul className="company-related-links font-mono">
+                {relatedLinks.map((link) => (
+                  <li key={link.label}>
+                    <Link href={link.href}>{link.label}</Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {children}
+        </section>
+
+        <Footer isHome={false} />
+      </main>
+    </>
+  );
+}

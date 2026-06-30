@@ -33,14 +33,14 @@ export default function Footer({ isHome = false }: FooterProps) {
       </div>
 
       <ul className="footer-nav">
-        <li><Link href="/career">CAREERS</Link></li>
+        <li><Link href="/company/careers">CAREERS</Link></li>
         {isHome ? (
           <li><a href="#releases">UPDATES</a></li>
         ) : (
           <li><Link href="/#releases">UPDATES</Link></li>
         )}
         <li><a href="#">PRIVACY POLICY</a></li>
-        <li><Link href="/partners">PARTNERS</Link></li>
+        <li><Link href="/company/partners">PARTNERS</Link></li>
       </ul>
 
       <span className="footer-copyright">
