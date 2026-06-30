@@ -21,7 +21,7 @@ Ensure you have [Node.js](https://nodejs.org/) installed (v18.x or later is reco
 Clone the repository and install the project dependencies:
 
 ```bash
-# Install package dependencies
+# Install package dependencie
 npm install
 ```
 
