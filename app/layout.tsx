@@ -5,6 +5,9 @@ import './globals.css';
 export const metadata: Metadata = {
   title: 'Spaceborn',
   description: 'The Android of drone autonomy through simulation-first intelligence.',
+  icons: {
+    icon: 'https://res.cloudinary.com/dq9x4mk1y/image/upload/w_256,h_256,c_fill/v1782859776/WhatsApp_Image_2026-06-30_at_19.48.56_g8owa7.jpg',
+  }
 };
 
 export const viewport: Viewport = {

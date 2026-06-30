@@ -56,7 +56,7 @@ export default function EdgeComputePage() {
           title: 'Related Platforms',
           items: [
             'ANSA',
-            'DERYK AI Platform',
+            'DERYK',
             'Flight Controllers',
             'Sensor Modules',
             'Telemetry',

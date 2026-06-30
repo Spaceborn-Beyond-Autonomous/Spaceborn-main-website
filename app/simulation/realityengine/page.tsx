@@ -53,7 +53,7 @@ export default function RealityEnginePage() {
             'Certanity',
             'ANSA',
             'Mission Studio',
-            'DERYK AI Platform',
+            'DERYK',
             'Fleet Manager',
           ],
         },

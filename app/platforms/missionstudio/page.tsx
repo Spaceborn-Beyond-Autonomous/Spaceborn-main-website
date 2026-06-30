@@ -50,7 +50,7 @@ export default function MissionStudioPage() {
             'ANSA',
             'Certanity',
             'Fleet Manager',
-            'DERYK AI Platform',
+            'DERYK',
             'Reality Engine',
           ],
         },

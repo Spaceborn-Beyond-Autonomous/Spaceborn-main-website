@@ -3,6 +3,7 @@
 import { useState, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import MobileMenu from './MobileMenu';
+import UpcomingLaunches from './UpcomingLaunches';
 
 type DropdownKey = 'platforms' | 'simulation' | 'systems' | 'industries' | 'company';
 
@@ -169,9 +170,7 @@ export default function Navbar() {
           </li>
         </ul>
 
-        <Link href="/#releases" className="btn font-mono desktop-only">
-          UPCOMING RELEASES →
-        </Link>
+        <UpcomingLaunches />
         <MobileMenu />
       </nav>
     </header>

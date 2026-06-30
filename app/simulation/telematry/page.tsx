@@ -55,7 +55,7 @@ export default function TelemetryPage() {
             'Fleet Manager',
             'Certanity',
             'Reality Engine',
-            'DERYK AI Platform',
+            'DERYK',
           ],
         },
       ]}

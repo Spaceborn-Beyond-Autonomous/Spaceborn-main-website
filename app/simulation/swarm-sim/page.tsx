@@ -60,7 +60,7 @@ export default function SwarmSimPage() {
             'ANSA',
             'Mission Studio',
             'Fleet Manager',
-            'DERYK AI Platform',
+            'DERYK',
           ],
         },
       ]}
