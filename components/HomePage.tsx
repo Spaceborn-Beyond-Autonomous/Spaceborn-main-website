@@ -1,4 +1,5 @@
 'use client';
+import Link from 'next/link';
 import { LazyVideo } from "./LazyVideo";
 import { optimizeCloudinary } from "../lib/utils";
 
@@ -15,6 +16,7 @@ type SimulatorData = {
   title: string;
   desc: string;
   cta: string;
+  href?: string;
   image?: string;
   imageMobile?: string;
   video?: string;
@@ -65,6 +67,7 @@ const simulators: SimulatorData[] = [
     title: 'SWARM & FLEET SIMULATOR',
     desc: 'One vehicle is impressive. One hundred moving as a single intelligence changes everything. Validate coordinated autonomy at fleet scale.',
     cta: 'COMMAND THE SWARM',
+    href: '/simulation/swarm-simulator',
     image: 'https://res.cloudinary.com/dq9x4mk1y/image/upload/v1782734334/spaceborn_assets/swarm_simulator_img.jpg',
     imageMobile: 'https://res.cloudinary.com/dq9x4mk1y/image/upload/v1782734303/spaceborn_assets/mobile/asset-10.jpg',
   },
@@ -522,9 +525,15 @@ export default function HomePage() {
                 <div className="sim-content" style={{ position: 'relative', zIndex: 2 }}>
                   <h3 className="sim-title">{sim.title}</h3>
                   <p className="sim-desc">{sim.desc}</p>
-                  <a href="#releases" className="btn font-mono">
-                    {sim.cta}
-                  </a>
+                  {sim.href ? (
+                    <Link href={sim.href} className="btn font-mono">
+                      {sim.cta}
+                    </Link>
+                  ) : (
+                    <a href="#releases" className="btn font-mono">
+                      {sim.cta}
+                    </a>
+                  )}
                 </div>
               </div>
             ))}
