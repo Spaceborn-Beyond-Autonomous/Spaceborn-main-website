@@ -9,8 +9,8 @@ export default function LaunchesPage() {
   const [upcomingLaunches, setUpcomingLaunches] = useState<LaunchData[]>(() => {
     const now = Date.now();
     const filtered = DEFAULT_LAUNCHES.filter(l => {
-      const parsedDate = new Date(l.date).getTime();
-      return isNaN(parsedDate) || parsedDate >= now;
+      const targetTime = l.targetUtc ? new Date(l.targetUtc).getTime() : new Date(l.date).getTime();
+      return isNaN(targetTime) || targetTime >= now;
     });
     return sortLaunches(filtered, true);
   });
@@ -18,8 +18,8 @@ export default function LaunchesPage() {
   const [pastLaunches, setPastLaunches] = useState<LaunchData[]>(() => {
     const now = Date.now();
     const filtered = DEFAULT_LAUNCHES.filter(l => {
-      const parsedDate = new Date(l.date).getTime();
-      return !isNaN(parsedDate) && parsedDate < now;
+      const targetTime = l.targetUtc ? new Date(l.targetUtc).getTime() : new Date(l.date).getTime();
+      return !isNaN(targetTime) && targetTime < now;
     });
     return sortLaunches(filtered, false);
   });
@@ -37,7 +37,8 @@ export default function LaunchesPage() {
       const url = process.env.NEXT_PUBLIC_LAUNCHES_JSON_URL;
       if (url) {
         try {
-          const res = await fetch(url);
+          const fetchUrl = `${url}${url.includes('?') ? '&' : '?'}t=${Date.now()}`;
+          const res = await fetch(fetchUrl, { cache: 'no-store' });
           if (res.ok) {
             const json = await res.json();
             if (Array.isArray(json) && json.length > 0) {
@@ -45,8 +46,8 @@ export default function LaunchesPage() {
               const upcoming: LaunchData[] = [];
               const past: LaunchData[] = [];
               json.forEach((l: LaunchData) => {
-                const parsedDate = new Date(l.date).getTime();
-                if (!isNaN(parsedDate) && parsedDate < now) {
+                const targetTime = l.targetUtc ? new Date(l.targetUtc).getTime() : new Date(l.date).getTime();
+                if (!isNaN(targetTime) && targetTime < now) {
                   past.push(l);
                 } else {
                   upcoming.push(l);

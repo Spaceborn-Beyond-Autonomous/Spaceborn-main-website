@@ -98,7 +98,8 @@ export default function UpcomingLaunches() {
       
       if (url) {
         try {
-          const res = await fetch(url);
+          const fetchUrl = `${url}${url.includes('?') ? '&' : '?'}t=${Date.now()}`;
+          const res = await fetch(fetchUrl, { cache: 'no-store' });
           if (res.ok) {
             const json = await res.json();
             if (Array.isArray(json) && json.length > 0) {
@@ -116,9 +117,9 @@ export default function UpcomingLaunches() {
       const past: LaunchData[] = [];
 
       data.forEach(l => {
-        const parsedDate = new Date(l.date).getTime();
+        const targetTime = l.targetUtc ? new Date(l.targetUtc).getTime() : new Date(l.date).getTime();
         // Check exact date against now
-        if (!isNaN(parsedDate) && parsedDate < now) {
+        if (!isNaN(targetTime) && targetTime < now) {
           past.push(l);
         } else {
           upcoming.push(l);
