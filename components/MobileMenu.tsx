@@ -36,8 +36,9 @@ export default function MobileMenu({ isCareer }: { isCareer?: boolean }) {
                 <li><Link href="/#platforms" onClick={toggleMenu}>platforms</Link></li>
                 <li><Link href="/#simulation" onClick={toggleMenu}>simulation</Link></li>
                 <li><Link href="/#systems" onClick={toggleMenu}>systems</Link></li>
-                <li><Link href="/#thoth" onClick={toggleMenu}>thoth</Link></li>
+                <li><Link href="/#deryk" onClick={toggleMenu}>deryk</Link></li>
                 <li><a href="https://khonsu.in" target="_blank" rel="noopener noreferrer" onClick={toggleMenu}>khonsu</a></li>
+                <li><Link href="/#industries" onClick={toggleMenu}>industries</Link></li>
                 <li><Link href="/#simulators-hub" onClick={toggleMenu}>company</Link></li>
               </>
             )}

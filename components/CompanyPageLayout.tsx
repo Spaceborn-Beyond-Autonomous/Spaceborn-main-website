@@ -23,6 +23,43 @@ type CompanyPageLayoutProps = {
   children?: React.ReactNode;
 };
 
+const PAGE_LINKS: Record<string, string> = {
+  'ANSA': '/platforms/ansa',
+  'Certanity': '/platforms/certainty',
+  'Mission Studio': '/platforms/missionstudio',
+  'Fleet Manager': '/platforms/fleet-manager',
+  'Downloads': '/platforms/downloads',
+  'Reality Engine': '/simulation/realityengine',
+  'Digital Twins': '/simulation/digital-twins',
+  'LiDAR Simulator': '/simulation/lidar-simulator',
+  'GPS-Denied Navigation': '/simulation/gpsdenied',
+  'Telemetry': '/simulation/telematry',
+  'Swarm Simulator': '/simulation/swarm-sim',
+  'Flight Controllers': '/systems/flight-cont',
+  'ESC Systems': '/systems/Esc-sys',
+  'Sensor Modules': '/systems/sensor-modules',
+  'Edge Compute': '/systems/edgecompute',
+  'Embedded SDK': '/systems/embedded-sdk',
+  'Defense': '/industries/defence',
+  'Aerospace': '/industries/aerospace',
+  'Robotics': '/industries/robotics',
+  'Enterprise': '/industries/enterprise',
+  'Research & Education': '/industries/research-education',
+  'Government & Public Safety': '/industries/government-public-safety',
+  'OEM & Manufacturers': '/industries/oem-manufacturers',
+  'Wildlife': '/industries/wildlife',
+  'Energy & Utilities': '/industries/energy-utilities',
+  'Agriculture': '/industries/agriculture',
+  'Logistics': '/industries/logistics',
+  'About': '/company/about',
+  'Leadership': '/company/leadership',
+  'Careers': '/company/careers',
+  'Newsroom': '/company/newsroom',
+  'Partners': '/company/partners',
+  'Investors': '/company/investors',
+  'Contact': '/company/contact',
+};
+
 export default function CompanyPageLayout({
   title,
   subtitle,
@@ -54,9 +91,20 @@ export default function CompanyPageLayout({
                 <div key={section.title} className="company-section-block">
                   <h2 className="company-section-title font-inter">{section.title}</h2>
                   <ul className="company-list font-inter">
-                    {section.items.map((item) => (
-                      <li key={item}>{item}</li>
-                    ))}
+                    {section.items.map((item) => {
+                      const href = PAGE_LINKS[item];
+                      return (
+                        <li key={item}>
+                          {href ? (
+                            <Link href={href} className="hover-link">
+                              {item}
+                            </Link>
+                          ) : (
+                            item
+                          )}
+                        </li>
+                      );
+                    })}
                   </ul>
                 </div>
               ))}

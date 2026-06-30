@@ -764,9 +764,9 @@ a {
   min-height: 871px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   background: #010101;
-  padding: 180px 48px 80px;
+  padding: 160px 10%;
   box-sizing: border-box;
 }
 
@@ -775,7 +775,7 @@ a {
   line-height: 1.15;
   color: var(--heading);
   text-transform: uppercase;
-  margin: 0 0 16px;
+  margin: 0 0 32px;
 }
 
 .partners-desc {
@@ -784,7 +784,7 @@ a {
   font-weight: 300;
   color: #FFFFFF;
   max-width: 1000px;
-  margin: 0 0 16px;
+  margin: 0 0 24px;
 }
 
 .partners-callout {
@@ -798,7 +798,7 @@ a {
 .partners-ctas-grid {
   display: flex;
   gap: 120px;
-  margin-top: 0;
+  margin-top: 32px;
 }
 
 .partner-cta-box {
@@ -1679,4 +1679,501 @@ a {
   pointer-events: none;
 }
 
+/* ========================================= */
+/* ANSA PLATFORM PAGE STYLES                 */
+/* ========================================= */
 
+.ansa-page-container {
+  position: relative;
+  min-height: 100vh;
+  background: var(--bg);
+  overflow: hidden;
+  padding-bottom: 80px;
+}
+
+/* Glow Effects */
+.ansa-glow-1 {
+  position: absolute;
+  top: -20%;
+  left: -10%;
+  width: 70vw;
+  height: 70vw;
+  background: radial-gradient(circle, rgba(90, 216, 238, 0.1) 0%, rgba(1, 1, 1, 0) 60%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.ansa-glow-2 {
+  position: absolute;
+  top: 40%;
+  right: -20%;
+  width: 60vw;
+  height: 60vw;
+  background: radial-gradient(circle, rgba(229, 72, 72, 0.05) 0%, rgba(1, 1, 1, 0) 60%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Common Layout Utilities */
+.container-padding {
+  padding: 0 48px;
+  max-width: 1440px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+.center-text {
+  text-align: center;
+}
+
+/* Hero Section */
+.ansa-hero {
+  position: relative;
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 120px 48px;
+  z-index: 2;
+}
+
+.ansa-hero-content {
+  text-align: center;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: ansaFadeUp 1s ease-out forwards;
+}
+
+@keyframes ansaFadeUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.ansa-badge {
+  background: rgba(241, 242, 236, 0.05);
+  border: 1px solid var(--border-c);
+  padding: 6px 16px;
+  border-radius: 20px;
+  color: var(--cyan);
+  font-size: 11px;
+  letter-spacing: 2px;
+  margin-bottom: 24px;
+  text-transform: uppercase;
+}
+
+.ansa-main-title {
+  font-size: clamp(60px, 10vw, 140px);
+  color: var(--text);
+  margin: 0 0 16px;
+  line-height: 1;
+  text-shadow: 0 0 40px rgba(241, 242, 236, 0.2);
+  letter-spacing: 4px;
+}
+
+.ansa-subtitle {
+  font-size: clamp(16px, 2vw, 22px);
+  color: var(--muted);
+  max-width: 600px;
+  margin: 0 0 40px;
+  line-height: 1.6;
+}
+
+.ansa-line-decoration {
+  width: 1px;
+  height: 100px;
+  background: linear-gradient(to bottom, var(--text), transparent);
+  margin: 0 auto;
+}
+
+/* Intro Section */
+.ansa-intro-section {
+  padding: 80px 48px;
+  position: relative;
+  z-index: 2;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.ansa-intro-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 60px;
+  align-items: start;
+}
+
+.ansa-intro-main .lead-paragraph {
+  font-size: 24px;
+  line-height: 1.6;
+  color: var(--heading);
+  margin-bottom: 32px;
+  font-weight: 300;
+}
+
+.ansa-intro-main .body-paragraph {
+  font-size: 18px;
+  line-height: 1.7;
+  color: var(--muted);
+  font-weight: 300;
+}
+
+.ansa-intro-sidebar .sidebar-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-c);
+  padding: 32px;
+  border-left: 3px solid var(--cyan);
+  backdrop-filter: blur(10px);
+}
+
+.sidebar-card .card-mini-title {
+  color: var(--text);
+  font-size: 13px;
+  letter-spacing: 1.5px;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
+
+.sidebar-card .card-text {
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.6;
+  font-weight: 300;
+}
+
+/* Deep Dive Section */
+.ansa-deep-dive {
+  padding: 80px 48px;
+  max-width: 1440px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.deep-dive-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+.deep-dive-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-c);
+  padding: 40px 32px;
+  position: relative;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.deep-dive-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(241, 242, 236, 0.5);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.card-number {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  font-size: 14px;
+  color: var(--line);
+}
+
+.deep-dive-card:hover .card-number {
+  color: var(--cyan);
+}
+
+.deep-dive-title {
+  font-size: 20px;
+  color: var(--heading);
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+}
+
+.deep-dive-text {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--muted);
+  font-weight: 300;
+}
+
+/* Why ANSA Section */
+.ansa-why-section {
+  padding: 120px 48px;
+  background: #050505;
+  position: relative;
+  z-index: 2;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.why-content-wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.section-title-ethno {
+  font-size: clamp(28px, 4vw, 42px);
+  color: var(--heading);
+  margin-bottom: 40px;
+  letter-spacing: 1.5px;
+}
+
+.why-text {
+  font-size: 18px;
+  line-height: 1.7;
+  color: var(--muted);
+  margin-bottom: 24px;
+  font-weight: 300;
+}
+
+.why-highlight-quote {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--cyan);
+  margin-top: 48px;
+  padding: 32px;
+  border: 1px dashed rgba(90, 216, 238, 0.3);
+  background: rgba(90, 216, 238, 0.02);
+}
+
+/* Capabilities Section */
+.ansa-capabilities-section {
+  padding: 120px 0;
+  position: relative;
+  z-index: 2;
+}
+
+.capabilities-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-top: 60px;
+}
+
+.capability-card {
+  border: 1px solid var(--border-c);
+  padding: 32px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0) 100%);
+  transition: background 0.3s ease;
+}
+
+.capability-card:hover {
+  background: rgba(255,255,255,0.05);
+}
+
+.capability-header {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+}
+
+.capability-index {
+  font-size: 11px;
+  color: var(--cyan);
+  margin-bottom: 8px;
+}
+
+.capability-title {
+  font-size: 18px;
+  color: var(--text);
+  letter-spacing: 1px;
+}
+
+.capability-desc {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--muted);
+  font-weight: 300;
+}
+
+/* Grids Section (Industries / Applications) */
+.ansa-grids-section {
+  padding: 80px 48px;
+  max-width: 1440px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.grids-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+}
+
+.vertical-list {
+  list-style: none;
+  padding: 0;
+  margin: 32px 0 0;
+}
+
+.list-item {
+  display: flex;
+  align-items: center;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.list-item:last-child {
+  border-bottom: none;
+}
+
+.list-item .bullet {
+  color: var(--line);
+  font-size: 13px;
+  margin-right: 16px;
+  min-width: 40px;
+  transition: color 0.3s ease;
+}
+
+.list-item:hover .bullet {
+  color: var(--cyan);
+}
+
+.list-item .item-label {
+  font-size: 16px;
+  color: var(--text);
+  font-weight: 300;
+}
+
+/* Ecosystem Section */
+.ansa-ecosystem-section {
+  padding: 120px 0;
+  background: #050505;
+  border-top: 1px solid var(--line);
+  position: relative;
+  z-index: 2;
+}
+
+.section-intro-text {
+  font-size: 18px;
+  color: var(--muted);
+  margin-bottom: 60px;
+  font-weight: 300;
+}
+
+.ecosystem-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.ecosystem-card {
+  border: 1px solid var(--border-c);
+  padding: 32px 24px;
+  text-align: center;
+  background: rgba(1, 1, 1, 0.5);
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.ecosystem-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--cyan);
+}
+
+.ecosystem-title {
+  font-size: 14px;
+  color: var(--text);
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.ecosystem-line {
+  width: 40px;
+  height: 2px;
+  background: var(--line);
+  margin: 0 auto 16px;
+  transition: background 0.3s ease, width 0.3s ease;
+}
+
+.ecosystem-card:hover .ecosystem-line {
+  background: var(--cyan);
+  width: 60px;
+}
+
+.ecosystem-desc {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--muted);
+  font-weight: 300;
+}
+
+/* Future Section */
+.ansa-future-section {
+  padding: 120px 48px;
+  position: relative;
+  z-index: 2;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.future-wrapper {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.future-box {
+  border: 1px solid var(--border-c);
+  background: rgba(255, 255, 255, 0.02);
+  padding: 60px;
+  text-align: center;
+  margin-top: 48px;
+  position: relative;
+  overflow: hidden;
+}
+
+.future-box::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, var(--cyan), var(--red));
+}
+
+.future-text {
+  font-size: 20px;
+  line-height: 1.7;
+  color: var(--muted);
+  margin-bottom: 40px;
+  font-weight: 300;
+}
+
+.future-tagline {
+  font-size: 14px;
+  color: var(--text);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .ansa-intro-grid, .deep-dive-grid, .capabilities-grid, .grids-container {
+    grid-template-columns: 1fr;
+  }
+  .ecosystem-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .future-box {
+    padding: 40px 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .ansa-hero {
+    padding: 100px 24px;
+  }
+  .ansa-main-title {
+    font-size: clamp(40px, 8vw, 80px);
+  }
+  .container-padding, .ansa-intro-section, .ansa-deep-dive, .ansa-why-section, .ansa-grids-section, .ansa-future-section {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+  .ecosystem-grid {
+    grid-template-columns: 1fr;
+  }
+}

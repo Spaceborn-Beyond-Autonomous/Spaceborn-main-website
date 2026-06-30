@@ -4,7 +4,7 @@ import { useState, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import MobileMenu from './MobileMenu';
 
-type DropdownKey = 'platforms' | 'simulation' | 'systems' | 'company';
+type DropdownKey = 'platforms' | 'simulation' | 'systems' | 'industries' | 'company';
 
 type NavItem = {
   label: string;
@@ -15,32 +15,48 @@ const DROPDOWN_NAV: Record<DropdownKey, { label: string; items: NavItem[] }> = {
   platforms: {
     label: 'PLATFORMS',
     items: [
-      { label: 'ANSA', href: '#' },
-      { label: 'Certainty', href: '/platforms/certainty' },
-      { label: 'Mission Studio', href: '#' },
-      { label: 'Fleet Manager', href: '#' },
-      { label: 'Downloads (Coming Soon...)', href: '#' },
+      { label: 'ANSA', href: '/platforms/ansa' },
+      { label: 'Certanity', href: '/platforms/certainty' },
+      { label: 'Mission Studio', href: '/platforms/missionstudio' },
+      { label: 'Fleet Manager', href: '/platforms/fleet-manager' },
+      { label: 'Downloads', href: '/platforms/downloads' },
     ],
   },
   simulation: {
     label: 'SIMULATION',
     items: [
-      { label: 'Reality Engine', href: '#' },
-      { label: 'Digital Twins', href: '#' },
+      { label: 'Reality Engine', href: '/simulation/realityengine' },
+      { label: 'Digital Twins', href: '/simulation/digital-twins' },
       { label: 'LiDAR Simulator', href: '/simulation/lidar-simulator' },
-      { label: 'GPS Denied Navigation', href: '#' },
-      { label: 'Telemetry', href: '#' },
-      { label: 'Swarm Simulator', href: '#' },
+      { label: 'GPS-Denied Navigation', href: '/simulation/gpsdenied' },
+      { label: 'Telemetry', href: '/simulation/telematry' },
+      { label: 'Swarm Simulator', href: '/simulation/swarm-sim' },
     ],
   },
   systems: {
     label: 'SYSTEMS',
     items: [
-      { label: 'Flight Controllers', href: '#' },
-      { label: 'ESC Systems', href: '#' },
-      { label: 'Sensor Modules', href: '#' },
-      { label: 'Edge Compute', href: '#' },
+      { label: 'Flight Controllers', href: '/systems/flight-cont' },
+      { label: 'ESC Systems', href: '/systems/Esc-sys' },
+      { label: 'Sensor Modules', href: '/systems/sensor-modules' },
+      { label: 'Edge Compute', href: '/systems/edgecompute' },
       { label: 'Embedded SDK', href: '/systems/embedded-sdk' },
+    ],
+  },
+  industries: {
+    label: 'INDUSTRIES',
+    items: [
+      { label: 'Defense', href: '/industries/defence' },
+      { label: 'Aerospace', href: '/industries/aerospace' },
+      { label: 'Robotics', href: '/industries/robotics' },
+      { label: 'Enterprise', href: '/industries/enterprise' },
+      { label: 'Research & Education', href: '/industries/research-education' },
+      { label: 'Government & Public Safety', href: '/industries/government-public-safety' },
+      { label: 'OEM & Manufacturers', href: '/industries/oem-manufacturers' },
+      { label: 'Wildlife', href: '/industries/wildlife' },
+      { label: 'Energy & Utilities', href: '/industries/energy-utilities' },
+      { label: 'Agriculture', href: '/industries/agriculture' },
+      { label: 'Logistics', href: '/industries/logistics' },
     ],
   },
   company: {
@@ -52,8 +68,6 @@ const DROPDOWN_NAV: Record<DropdownKey, { label: string; items: NavItem[] }> = {
       { label: 'Newsroom', href: '/company/newsroom' },
       { label: 'Partners', href: '/company/partners' },
       { label: 'Investors', href: '/company/investors' },
-      { label: 'Enterprise', href: '/industries/enterprise' },
-      { label: 'Government & Public Safety', href: '/industries/government-public-safety' },
       { label: 'Contact', href: '/company/contact' },
     ],
   },
@@ -146,7 +160,7 @@ export default function Navbar() {
             );
           })}
           <li>
-            <Link href="/#thoth">THOTH</Link>
+            <Link href="/#deryk">DERYK</Link>
           </li>
           <li>
             <a href="https://khonsu.in" target="_blank" rel="noopener noreferrer">
