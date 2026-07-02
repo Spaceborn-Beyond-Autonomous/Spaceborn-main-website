@@ -18,7 +18,7 @@ export function isRateLimited(
   options: RateLimitOptions
 ): { limited: boolean; limit: number; remaining: number; resetTime: number } {
   // Retrieve the client IP address from request headers or NextRequest IP.
-  const ip = request.ip || request.headers.get('x-forwarded-for')?.split(',')[0].trim() || '127.0.0.1';
+  const ip = (request as any).ip || request.headers.get('x-forwarded-for')?.split(',')[0].trim() || '127.0.0.1';
   const key = `${keyPrefix}:${ip}`;
   const now = Date.now();
 
