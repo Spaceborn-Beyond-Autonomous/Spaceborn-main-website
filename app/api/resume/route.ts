@@ -3,6 +3,7 @@ import path from 'path';
 import { uploadResumeSubmission } from '../../../backend/resumeService';
 import { isRateLimited } from '../../../lib/rateLimit';
 import { isValidLength, hasNewline, validateEmailFormat } from '../../../lib/validation';
+import { validateFileBuffer, sanitizeFilename } from '../../../lib/fileValidation';
 
 export const runtime = 'nodejs';
 
@@ -108,16 +109,13 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Resume file is required.' }, { status: 400 });
     }
 
-    // File validation: extension
-    const allowedExtensions = ['.pdf', '.docx', '.doc'];
-    const fileExtension = path.extname(resume.name).toLowerCase();
-    if (!allowedExtensions.includes(fileExtension)) {
-      return NextResponse.json({ 
-        error: 'Invalid file type. Only PDF, DOC, and DOCX files are allowed.' 
-      }, { status: 400 });
+    // 5. File Validation
+    // Reject empty files
+    if (resume.size === 0) {
+      return NextResponse.json({ error: 'Empty file uploaded.' }, { status: 400 });
     }
 
-    // File validation: size (max 10MB)
+    // Size limit check
     const maxSize = 10 * 1024 * 1024;
     if (resume.size > maxSize) {
       return NextResponse.json({ 
@@ -125,15 +123,43 @@ export async function POST(request: NextRequest) {
       }, { status: 400 });
     }
 
+    // Filename sanitization
+    const sanitizedFilename = sanitizeFilename(resume.name);
+
+    // Extension allowed check
+    const allowedExtensions = ['.pdf', '.docx', '.doc'];
+    const fileExtension = path.extname(sanitizedFilename).toLowerCase();
+    if (!allowedExtensions.includes(fileExtension)) {
+      return NextResponse.json({ 
+        error: 'Invalid file type. Only PDF, DOC, and DOCX files are allowed.' 
+      }, { status: 400 });
+    }
+
+    // Magic-byte check on buffer content
     const arrayBuffer = await resume.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
+    const validationResult = validateFileBuffer(buffer);
+
+    if (!validationResult.isValid) {
+      return NextResponse.json({ 
+        error: 'Invalid or corrupted file content. Only PDF, DOC, and DOCX files are allowed.' 
+      }, { status: 400 });
+    }
+
+    // Verify extension matches magic bytes detected signature
+    if (fileExtension !== validationResult.detectedExtension) {
+      return NextResponse.json({
+        error: 'File extension does not match file content signature.'
+      }, { status: 400 });
+    }
+
     const uploadedResume = await uploadResumeSubmission({
       name: name.trim(),
       email: email.trim(),
       phone: phone ? phone.trim() : '',
       message: message ? message.trim() : '',
-      originalFileName: resume.name,
-      mimeType: resume.type,
+      originalFileName: sanitizedFilename,
+      mimeType: validationResult.detectedMime, // Use server-derived, verified MIME type
       fileBuffer: buffer,
     });
 

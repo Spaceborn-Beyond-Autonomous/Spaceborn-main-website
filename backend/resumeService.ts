@@ -12,11 +12,7 @@ type ResumeSubmission = {
   fileBuffer: Buffer;
 };
 
-function getMimeType(fileExtension: string, fallback?: string) {
-  if (fallback) {
-    return fallback;
-  }
-
+function getMimeType(fileExtension: string) {
   switch (fileExtension) {
     case '.pdf':
       return 'application/pdf';
@@ -61,7 +57,7 @@ export async function uploadResumeSubmission(submission: ResumeSubmission) {
       description: submission.message || undefined,
     },
     media: {
-      mimeType: getMimeType(fileExtension, submission.mimeType),
+      mimeType: getMimeType(fileExtension),
       body: Readable.from(submission.fileBuffer),
     },
     fields: 'id, name, webViewLink',
