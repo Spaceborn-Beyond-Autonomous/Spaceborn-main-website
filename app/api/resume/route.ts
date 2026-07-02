@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import path from 'path';
 import { uploadResumeSubmission } from '../../../backend/resumeService';
+import { isRateLimited } from '../../../lib/rateLimit';
+import { isValidLength, hasNewline, validateEmailFormat } from '../../../lib/validation';
 
 export const runtime = 'nodejs';
 
@@ -29,28 +31,80 @@ function getSafeUploadErrorMessage(error: unknown) {
 
 export async function POST(request: NextRequest) {
   try {
-    const formData = await request.formData();
+    // 1. Rate Limiting Check
+    const rateLimitResult = isRateLimited(request, 'resume-upload', {
+      limit: 5,
+      windowMs: 15 * 60 * 1000, // 15 minutes
+    });
+
+    if (rateLimitResult.limited) {
+      return NextResponse.json(
+        { error: 'Too many requests. Please try again later.' },
+        { 
+          status: 429,
+          headers: {
+            'Retry-After': Math.ceil((rateLimitResult.resetTime - Date.now()) / 1000).toString(),
+          }
+        }
+      );
+    }
+
+    // 2. CSRF / Origin Hardening
+    const origin = request.headers.get('origin');
+    const host = request.headers.get('host');
+    if (origin) {
+      try {
+        const originUrl = new URL(origin);
+        const hostHeader = host || '';
+        if (originUrl.host !== hostHeader && process.env.NODE_ENV === 'production') {
+          return NextResponse.json({ error: 'Forbidden origin.' }, { status: 403 });
+        }
+      } catch {
+        return NextResponse.json({ error: 'Invalid origin header.' }, { status: 400 });
+      }
+    }
+
+    // 3. Parse Form Data
+    let formData: FormData;
+    try {
+      formData = await request.formData();
+    } catch {
+      return NextResponse.json(
+        { error: 'Invalid request payload. Must be multipart/form-data.' },
+        { status: 400 }
+      );
+    }
+
     const name = formData.get('name') as string | null;
     const email = formData.get('email') as string | null;
     const phone = formData.get('phone') as string | null;
     const message = formData.get('message') as string | null;
     const resume = formData.get('resume') as File | null;
 
-    // Validation
+    // 4. Strict Validation
     if (!name || !name.trim()) {
       return NextResponse.json({ error: 'Name is required.' }, { status: 400 });
+    }
+    if (!isValidLength(name, 100) || hasNewline(name)) {
+      return NextResponse.json({ error: 'Invalid name format or length.' }, { status: 400 });
     }
 
     if (!email || !email.trim()) {
       return NextResponse.json({ error: 'Email is required.' }, { status: 400 });
     }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      return NextResponse.json({ error: 'Invalid email address format.' }, { status: 400 });
+    if (!isValidLength(email, 254) || hasNewline(email) || !validateEmailFormat(email)) {
+      return NextResponse.json({ error: 'Invalid email address format or length.' }, { status: 400 });
     }
 
-    if (!resume) {
+    if (phone && (!isValidLength(phone, 30) || hasNewline(phone))) {
+      return NextResponse.json({ error: 'Invalid phone number format or length.' }, { status: 400 });
+    }
+
+    if (message && !isValidLength(message, 5000)) {
+      return NextResponse.json({ error: 'Message exceeds maximum allowed length.' }, { status: 400 });
+    }
+
+    if (!resume || !(resume instanceof File)) {
       return NextResponse.json({ error: 'Resume file is required.' }, { status: 400 });
     }
 

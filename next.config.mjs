@@ -32,7 +32,7 @@ const nextConfig = {
           },
           {
             key: 'Content-Security-Policy',
-            value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' blob: data: https://res.cloudinary.com; font-src 'self' https://fonts.gstatic.com; media-src 'self' blob: data: https://res.cloudinary.com; connect-src 'self'; frame-ancestors 'none';"
+            value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' blob: data: https://res.cloudinary.com; font-src 'self' https://fonts.gstatic.com; media-src 'self' blob: data: https://res.cloudinary.com; connect-src 'self' https://gist.githubusercontent.com; frame-ancestors 'none';"
           }
         ]
       }
