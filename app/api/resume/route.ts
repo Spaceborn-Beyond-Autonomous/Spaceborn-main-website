@@ -8,26 +8,15 @@ import { validateFileBuffer, sanitizeFilename } from '../../../lib/fileValidatio
 export const runtime = 'nodejs';
 
 function getSafeUploadErrorMessage(error: unknown) {
+  if (process.env.NODE_ENV === 'production') {
+    return 'An internal server error occurred while processing your upload.';
+  }
+
   if (!(error instanceof Error)) {
     return 'An internal server error occurred while processing your upload.';
   }
 
-  if (
-    error.message.includes('Google Drive service account env vars') ||
-    error.message.includes('GOOGLE_DRIVE_SERVICE_ACCOUNT_EMAIL') ||
-    error.message.includes('invalid_grant') ||
-    error.message.includes('invalid_request') ||
-    error.message.includes('File not found') ||
-    error.message.includes('insufficient') ||
-    error.message.includes('storage quota') ||
-    error.message.includes('storageQuotaExceeded')
-  ) {
-    return error.message;
-  }
-
-  return process.env.NODE_ENV === 'production'
-    ? 'An internal server error occurred while processing your upload.'
-    : error.message;
+  return error.message;
 }
 
 export async function POST(request: NextRequest) {
@@ -170,10 +159,7 @@ export async function POST(request: NextRequest) {
         id: uploadedResume.submissionId,
         name: name.trim(),
         email: email.trim(),
-        fileName: resume.name,
-        savedFileName: uploadedResume.savedFileName,
-        driveFileId: uploadedResume.driveFileId,
-        driveFolderName: uploadedResume.driveFolderName,
+        fileName: sanitizedFilename,
       }
     });
 
