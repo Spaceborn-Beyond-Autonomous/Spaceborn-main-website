@@ -39,18 +39,21 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // 2. CSRF / Origin Hardening
+    // 2. CSRF / Origin & Referer Hardening
     const origin = request.headers.get('origin');
+    const referer = request.headers.get('referer');
     const host = request.headers.get('host');
-    if (origin) {
+    const source = origin || referer;
+
+    if (source) {
       try {
-        const originUrl = new URL(origin);
+        const parsedSource = new URL(source);
         const hostHeader = host || '';
-        if (originUrl.host !== hostHeader && process.env.NODE_ENV === 'production') {
-          return NextResponse.json({ error: 'Forbidden origin.' }, { status: 403 });
+        if (parsedSource.host !== hostHeader && process.env.NODE_ENV === 'production') {
+          return NextResponse.json({ error: 'Forbidden origin or referer.' }, { status: 403 });
         }
       } catch {
-        return NextResponse.json({ error: 'Invalid origin header.' }, { status: 400 });
+        return NextResponse.json({ error: 'Invalid origin or referer header.' }, { status: 400 });
       }
     }
 
