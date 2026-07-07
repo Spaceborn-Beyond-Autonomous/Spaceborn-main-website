@@ -21,7 +21,7 @@ cloudinary.config({
   secure: true,
 });
 
-const ASSETS_DIR = path.resolve(__dirname, '../public/assets');
+const ASSETS_DIR = path.resolve(__dirname, '../downloaded_assets');
 const OUTPUT_FILE = path.resolve(__dirname, 'cloudinary-mapping.json');
 const CLOUDINARY_FOLDER = 'spaceborn_assets';
 

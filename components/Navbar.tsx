@@ -107,7 +107,7 @@ export default function Navbar() {
       <nav className="navbar">
         <Link href="/" className="logo" aria-label="Spaceborn home">
           <img
-            src="https://res.cloudinary.com/dq9x4mk1y/image/upload/v1782734333/spaceborn_assets/spaceborn-transparent-logo.png"
+            src="https://res.cloudinary.com/kpa1wv3h/image/upload/v1783382894/spaceborn_assets/spaceborn-transparent-logo.png"
             alt="Spaceborn Logo"
           />
         </Link>

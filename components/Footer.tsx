@@ -17,7 +17,7 @@ export default function Footer({ isHome = false }: FooterProps) {
           className="linkedin-link" 
           aria-label="Spaceborn LinkedIn"
         >
-          <img src="https://res.cloudinary.com/dq9x4mk1y/image/upload/v1782734290/spaceborn_assets/linkedin-icon.png" alt="LinkedIn Logo" />
+          <img src="https://res.cloudinary.com/kpa1wv3h/image/upload/v1783382862/spaceborn_assets/linkedin-icon.png" alt="LinkedIn Logo" />
         </a>
         <a 
           href="mailto:adarshkumar@spaceborn.in" 
