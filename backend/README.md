@@ -36,11 +36,17 @@ page and the supporting API:
   designation, department, experience (computed duration), tenure, description
   and issue date.
 
-Records are stored in `uploads/certificates.json` (the `uploads/` folder is
-gitignored, consistent with other PII in this project).
+Records are stored in Postgres. Point the server at a database with:
 
 ```env
+DATABASE_URL="postgres://user:password@host:5432/spaceborn?sslmode=require"
 CERT_API_KEY="shared-secret-also-set-in-the-generator-script-env"
+```
+
+Before first use, create the table by running `db/schema.sql` against that database:
+
+```bash
+psql "$DATABASE_URL" -f db/schema.sql
 ```
 
 On the script side, set `SPACEBORN_API_URL` (e.g. `https://spaceborn.in`) and

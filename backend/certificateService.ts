@@ -1,5 +1,4 @@
-import { promises as fs } from 'fs';
-import path from 'path';
+import { getPool } from '../lib/db';
 
 export type CertificateRecord = {
   certificate_id: string;
@@ -14,46 +13,58 @@ export type CertificateRecord = {
   updated_at: string;
 };
 
-const DATA_DIR = path.join(process.cwd(), 'uploads');
-const DATA_FILE = path.join(DATA_DIR, 'certificates.json');
-
-// Serialize writes so two concurrent syncs can't interleave read-modify-write
-let writeChain: Promise<unknown> = Promise.resolve();
-
-async function readStore(): Promise<Record<string, CertificateRecord>> {
-  try {
-    const raw = await fs.readFile(DATA_FILE, 'utf-8');
-    const parsed = JSON.parse(raw);
-    return parsed && typeof parsed === 'object' ? parsed : {};
-  } catch {
-    return {};
-  }
-}
-
 export async function getCertificate(certificateId: string): Promise<CertificateRecord | null> {
-  const store = await readStore();
-  return store[certificateId] ?? null;
+  const { rows } = await getPool().query<CertificateRecord>(
+    'SELECT * FROM certificates WHERE certificate_id = $1',
+    [certificateId]
+  );
+  return rows[0] ?? null;
 }
 
 export async function upsertCertificates(
   records: Omit<CertificateRecord, 'updated_at'>[]
 ): Promise<{ upserted: number; total: number }> {
-  const result = writeChain.then(async () => {
-    const store = await readStore();
-    const now = new Date().toISOString();
+  const client = await getPool().connect();
+  try {
+    await client.query('BEGIN');
 
-    for (const record of records) {
-      store[record.certificate_id] = { ...record, updated_at: now };
+    for (const r of records) {
+      await client.query(
+        `INSERT INTO certificates
+           (certificate_id, name, designation, department, start_date, end_date, experience, description, cert_date, updated_at)
+         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, now())
+         ON CONFLICT (certificate_id) DO UPDATE SET
+           name = EXCLUDED.name,
+           designation = EXCLUDED.designation,
+           department = EXCLUDED.department,
+           start_date = EXCLUDED.start_date,
+           end_date = EXCLUDED.end_date,
+           experience = EXCLUDED.experience,
+           description = EXCLUDED.description,
+           cert_date = EXCLUDED.cert_date,
+           updated_at = now()`,
+        [
+          r.certificate_id,
+          r.name,
+          r.designation,
+          r.department,
+          r.start_date,
+          r.end_date,
+          r.experience,
+          r.description,
+          r.cert_date,
+        ]
+      );
     }
 
-    await fs.mkdir(DATA_DIR, { recursive: true });
-    const tmpFile = `${DATA_FILE}.tmp`;
-    await fs.writeFile(tmpFile, JSON.stringify(store, null, 2), 'utf-8');
-    await fs.rename(tmpFile, DATA_FILE);
+    const { rows } = await client.query<{ count: string }>('SELECT COUNT(*) FROM certificates');
+    await client.query('COMMIT');
 
-    return { upserted: records.length, total: Object.keys(store).length };
-  });
-
-  writeChain = result.catch(() => {});
-  return result;
+    return { upserted: records.length, total: Number(rows[0].count) };
+  } catch (err) {
+    await client.query('ROLLBACK');
+    throw err;
+  } finally {
+    client.release();
+  }
 }
