@@ -39,7 +39,7 @@ page and the supporting API:
 Records are stored in Postgres. Point the server at a database with:
 
 ```env
-DATABASE_URL="postgres://user:password@host:5432/spaceborn?sslmode=require"
+DATABASE_URL="postgres://user:password@host:5432/spaceborn"
 CERT_API_KEY="shared-secret-also-set-in-the-generator-script-env"
 ```
 
