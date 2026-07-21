@@ -5,14 +5,14 @@ import Link from 'next/link';
 import MobileMenu from './MobileMenu';
 import UpcomingLaunches from './UpcomingLaunches';
 
-type DropdownKey = 'platforms' | 'simulation' | 'systems' | 'industries' | 'company';
+export type DropdownKey = 'platforms' | 'simulation' | 'systems' | 'industries' | 'company';
 
 type NavItem = {
   label: string;
   href: string;
 };
 
-const DROPDOWN_NAV: Record<DropdownKey, { label: string; items: NavItem[] }> = {
+export const DROPDOWN_NAV: Record<DropdownKey, { label: string; items: NavItem[] }> = {
   platforms: {
     label: 'PLATFORMS',
     items: [
