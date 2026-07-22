@@ -399,7 +399,7 @@ export default function HomePage() {
         {/* Page 4: Building the Systems of Autonomy */}
         <section className="landing-section section-left" id="systems">
 
-          <div className="video-background-container">
+          <div className="video-background-container desktop-only">
             <LazyVideo 
               ref={systemsVideoRef}
               autoPlay 
@@ -410,6 +410,10 @@ export default function HomePage() {
             >
               <source src={optimizeCloudinary("https://res.cloudinary.com/kpa1wv3h/video/upload/v1783382850/spaceborn_assets/flight-controller-gif.mp4")} type="video/mp4" />
             </LazyVideo>
+            <div className="overlay-left-dark" />
+          </div>
+          <div className="image-background-container mobile-only">
+            <img loading="lazy" src="/images/mobile-ui/image4.png" alt="Building the Systems of Autonomy" className="image-background systems-autonomy-bg" />
             <div className="overlay-left-dark" />
           </div>
           <div className="section-content">
@@ -507,7 +511,7 @@ export default function HomePage() {
                 }
               >
                 {sim.video && (
-                  <div className="video-background-container">
+                  <div className="video-background-container desktop-only">
                     <LazyVideo 
                       ref={(el) => {
                         simVideoRefs.current[sim.id] = el;

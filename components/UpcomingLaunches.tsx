@@ -42,7 +42,7 @@ export function sortLaunches(arr: LaunchData[], ascending = true) {
   });
 }
 
-function formatTimeLocal(utcIso?: string) {
+export function formatTimeLocal(utcIso?: string) {
   if (!utcIso) return 'TIME TBD';
   try {
     const date = new Date(utcIso);
