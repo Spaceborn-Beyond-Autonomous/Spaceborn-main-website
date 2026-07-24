@@ -1413,14 +1413,32 @@ a {
     line-height: 19px !important;
   }
 
-  .video-overlay,
   .overlay-left-dark,
-  .overlay-right-dark {
-    display: none !important;
+  .overlay-right-dark,
+  .video-overlay {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    z-index: 2 !important;
+    background: linear-gradient(
+      to top,
+      rgba(1, 1, 1, 0.85) 0%,
+      rgba(1, 1, 1, 0.45) 45%,
+      rgba(1, 1, 1, 0.15) 100%
+    ) !important;
+    display: block !important;
+    pointer-events: none !important;
   }
 
   .image-background,
   .video-background {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    transform: none !important;
     mask-image: none !important;
     -webkit-mask-image: none !important;
   }
@@ -1434,24 +1452,14 @@ a {
     -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%) !important;
   }
 
-  #systems .image-background {
-    transform: scale(0.8) translateY(-18%) !important;
-  }
-
-  #thoth .join-mission-bg {
-    object-position: left 20% !important;
-  }
-
-  #simulation .explore-ansa-bg {
-    object-position: left 20% !important;
-  }
-
-  #sim-digital-twin {
-    background-position: center 42% !important;
-  }
-
-  #sim-hal-portability {
-    background-position: center 22% !important;
+  #systems .systems-autonomy-bg {
+    object-fit: contain !important;
+    object-position: center top !important;
+    height: 68% !important;
+    max-height: 68% !important;
+    transform: scale(1.1) !important;
+    transform-origin: top center !important;
+    top: 0 !important;
   }
 }
 
@@ -1495,7 +1503,27 @@ a {
     min-height: calc(100vw * 16 / 9) !important;
     padding: 40px 24px 45px !important;
     background-image: var(--bg-image-mobile) !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
     box-sizing: border-box;
+    position: relative !important;
+  }
+  .simulator-panel::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      to top,
+      rgba(1, 1, 1, 0.85) 0%,
+      rgba(1, 1, 1, 0.35) 50%,
+      rgba(1, 1, 1, 0.1) 100%
+    );
+    z-index: 1;
+    pointer-events: none;
   }
   .scroll-indicator-container {
     position: static;
@@ -2556,11 +2584,11 @@ a {
 
 .launches-hero {
   position: relative;
-  height: 100vh;
-  min-height: 700px;
+  height: 75vh;
+  min-height: 540px;
   display: flex;
   align-items: flex-end;
-  padding: 80px 10%;
+  padding: 80px 8%;
 }
 
 .launches-hero-bg {
@@ -2577,6 +2605,7 @@ a {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center 25%;
 }
 
 .launches-hero-overlay {
@@ -2596,22 +2625,22 @@ a {
 }
 
 .launches-countdown {
-  font-size: 24px;
+  font-size: clamp(17px, 2.2vw, 24px);
   color: white;
   margin-bottom: 12px;
   letter-spacing: 2px;
 }
 
 .launches-hero-title {
-  font-size: clamp(48px, 6vw, 84px);
+  font-size: clamp(34px, 5vw, 72px);
   color: white;
-  margin: 0 0 32px 0;
-  line-height: 1.1;
+  margin: 0 0 24px 0;
+  line-height: 1.15;
   text-transform: uppercase;
 }
 
 .launches-watch-btn {
-  padding: 16px 40px;
+  padding: 14px 36px;
   border: 1px solid white;
   color: white;
   background: transparent;
@@ -2627,8 +2656,8 @@ a {
 
 .launches-table-section {
   background: #000;
-  padding: 100px 10%;
-  min-height: 600px;
+  padding: 60px 8%;
+  min-height: auto;
 }
 
 .launches-container {
@@ -2637,9 +2666,9 @@ a {
 }
 
 .launches-table-heading {
-  font-size: 32px;
+  font-size: clamp(22px, 2.8vw, 30px);
   color: white;
-  margin-bottom: 60px;
+  margin-bottom: 36px;
 }
 
 .launches-table {
@@ -2651,7 +2680,7 @@ a {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr;
   gap: 20px;
-  padding: 24px 0;
+  padding: 20px 0;
   border-bottom: 1px solid rgba(255,255,255,0.2);
   color: rgba(255,255,255,0.6);
   font-size: 12px;
@@ -2662,7 +2691,7 @@ a {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr;
   gap: 20px;
-  padding: 32px 0;
+  padding: 24px 0;
   border-bottom: 1px solid rgba(255,255,255,0.2);
   color: white;
   font-size: 14px;
@@ -2673,16 +2702,30 @@ a {
 @media (max-width: 900px) {
   .launches-table-header, .launches-table-row {
     grid-template-columns: 1fr;
-    gap: 12px;
+    gap: 8px;
   }
   .launches-table-row {
-    padding: 24px 0;
+    padding: 16px 0;
+    font-size: 13.5px;
   }
   .launches-hero {
-    padding: 60px 24px;
+    height: auto;
+    min-height: 440px;
+    padding: 100px 24px 44px;
+  }
+  .launches-hero-title {
+    font-size: clamp(25px, 6vw, 36px) !important;
+    margin-bottom: 18px !important;
+  }
+  .launches-countdown {
+    font-size: 16px !important;
+    margin-bottom: 8px !important;
   }
   .launches-table-section {
-    padding: 60px 24px;
+    padding: 40px 24px;
+  }
+  .launches-table-heading {
+    margin-bottom: 24px !important;
   }
 }
 
