@@ -59,7 +59,7 @@ const simulators: SimulatorData[] = [
     cta: 'ENTER DENIED TERRITORY',
     image: 'https://res.cloudinary.com/kpa1wv3h/image/upload/v1783382852/spaceborn_assets/gps_denied_simulator_img.jpg',
     imageMobile: '/images/mobile-ui/image9.png',
-    video: optimizeCloudinary('https://res.cloudinary.com/kpa1wv3h/video/upload/v1785781462/Quadcopter_drone_hovers_in_tunnel_202608030904_hvg4oj.mp4'),
+    video: optimizeCloudinary('https://res.cloudinary.com/kpa1wv3h/video/upload/v1785862445/Drone_hovering_in_concrete_tunnel_202608041116_t1pira.mp4'),
   },
   {
     id: 'swarm-fleet',
@@ -69,7 +69,7 @@ const simulators: SimulatorData[] = [
     cta: 'COMMAND THE SWARM',
     image: 'https://res.cloudinary.com/kpa1wv3h/image/upload/v1783382895/spaceborn_assets/swarm_simulator_img.jpg',
     imageMobile: '/images/mobile-ui/image10.png',
-    video: optimizeCloudinary('https://res.cloudinary.com/kpa1wv3h/video/upload/v1785781544/WhatsApp_Video_2026-08-03_at_12.34.59_PM_pwanpt.mp4'),
+    video: optimizeCloudinary('https://res.cloudinary.com/kpa1wv3h/video/upload/v1785862444/Animate_scene_with_black_gradient_202608041150_sg0hvz.mp4'),
   },
   {
     id: 'lidar-depth',
@@ -79,7 +79,7 @@ const simulators: SimulatorData[] = [
     cta: 'EXPLORE MACHINE PERCEPTION',
     image: 'https://res.cloudinary.com/kpa1wv3h/image/upload/v1783382861/spaceborn_assets/lidar-sim-new.jpg',
     imageMobile: '/images/mobile-ui/image11.png',
-    video: optimizeCloudinary('https://res.cloudinary.com/kpa1wv3h/video/upload/v1785781461/Drone_scanning_wet_tunnel_walls_202608030925_ew4qrd.mp4'),
+    video: optimizeCloudinary('https://res.cloudinary.com/kpa1wv3h/video/upload/v1785862445/Drone_hovering_green_laser_scann__202608041119_pfazd4.mp4'),
   },
   {
     id: 'khonsu-space',
@@ -99,7 +99,7 @@ const simulators: SimulatorData[] = [
     cta: 'PREDICT THE UNEXPECTED',
     image: 'https://res.cloudinary.com/kpa1wv3h/image/upload/v1783382896/spaceborn_assets/telemetry_simulator_img.jpg',
     imageMobile: '/images/mobile-ui/image13.png',
-    video: optimizeCloudinary('https://res.cloudinary.com/kpa1wv3h/video/upload/v1785781462/Drone_hovering_in_industrial_set__202608030937_mkwanz.mp4'),
+    video: optimizeCloudinary('https://res.cloudinary.com/kpa1wv3h/video/upload/v1785862443/Animate_drone_hovering_place_202608041124_lfswum.mp4'),
   },
   {
     id: 'hal-portability',
@@ -294,7 +294,7 @@ export default function HomePage() {
               className="video-background"
             >
               <source media="(max-width: 1100px)" src="/images/mobile-ui/image1.mp4" type="video/mp4" />
-              <source src={optimizeCloudinary("https://res.cloudinary.com/kpa1wv3h/video/upload/v1783382891/spaceborn_assets/spaceborn-hero-GIF.mp4")} type="video/mp4" />
+              <source src={optimizeCloudinary("https://res.cloudinary.com/kpa1wv3h/video/upload/v1785862443/Animate_drone_hovering_place_202608041124_lfswum.mp4")} type="video/mp4" />
             </video>
             <audio 
               ref={audioRef}
@@ -410,7 +410,7 @@ export default function HomePage() {
               playsInline 
               className="video-background"
             >
-              <source src={optimizeCloudinary("https://res.cloudinary.com/kpa1wv3h/video/upload/v1785781544/WhatsApp_Video_2026-08-03_at_12.35.02_PM_ytgupi.mp4")} type="video/mp4" />
+              <source src={optimizeCloudinary("https://res.cloudinary.com/kpa1wv3h/video/upload/v1785868057/VideoProject_hzk4kg.mp4")} type="video/mp4" />
             </LazyVideo>
             <div className="overlay-left-dark" />
           </div>
@@ -447,7 +447,7 @@ export default function HomePage() {
         <section className="landing-section section-right" id="thoth">
           <div className="image-background-container">
             <LazyVideo autoPlay muted loop playsInline className="image-background join-mission-bg desktop-only">
-              <source src={optimizeCloudinary("https://res.cloudinary.com/kpa1wv3h/video/upload/v1785781545/WhatsApp_Video_2026-08-03_at_12.34.57_PM_wereg3.mp4")} type="video/mp4" />
+              <source src={optimizeCloudinary("https://res.cloudinary.com/kpa1wv3h/video/upload/v1785864281/WhatsApp_Video_2026-08-04_at_12.23.58_PM_wsg6oz.mp4")} type="video/mp4" />
             </LazyVideo>
             <img loading="lazy" src="/images/mobile-ui/image5.png" alt="Join Our Mission" className="image-background join-mission-bg mobile-only" />
             <div className="overlay-right-dark" />
