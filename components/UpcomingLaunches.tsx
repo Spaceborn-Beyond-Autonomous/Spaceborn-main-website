@@ -27,14 +27,28 @@ export const DEFAULT_LAUNCHES: LaunchData[] = [
   { project: 'GUI', classification: 'POC', date: 'JULY 26, 2026' },
   { project: 'DERYK', classification: 'PLATFORM RELEASE', date: 'JULY 30, 2026' },
   { project: 'Control Logic', classification: 'POC', date: 'AUGUST 1, 2026' },
-  { project: 'H7 Flight Controller', classification: 'HARDWARE RELEASE', date: 'COMING SOON' },
-  { project: 'Nano System', classification: 'HARDWARE RELEASE', date: 'COMING SOON' },
+  { project: 'GPS Denied Phase 1', classification: 'PLATFORM RELEASE', date: 'AUGUST 3, 2026', targetUtc: '2026-08-03T18:29:59Z', image: 'https://res.cloudinary.com/dq9x4mk1y/image/upload/w_2000,h_1200,c_fill/v1782859776/WhatsApp_Image_2026-06-30_at_19.48.56_g8owa7.jpg' },
+  { project: 'GPS Denied Phase 2', classification: 'PLATFORM RELEASE', date: 'AUGUST 16, 2026', targetUtc: '2026-08-16T18:29:59Z', image: 'https://res.cloudinary.com/dq9x4mk1y/image/upload/w_2000,h_1200,c_fill/v1782859776/WhatsApp_Image_2026-06-30_at_19.48.56_g8owa7.jpg' },
+  { project: 'GPS Denied', classification: 'PUBLIC RELEASE', date: 'AUGUST 30, 2026', targetUtc: '2026-08-30T18:29:59Z' },
+  { project: 'Zero Sensor', classification: 'PLATFORM RELEASE', date: 'AUGUST 7, 2026', targetUtc: '2026-08-07T18:29:59Z' },
+  { project: 'Everything in Robotics and Simulation', classification: 'PLATFORM RELEASE', date: 'DONE TILL YET' },
+  { project: 'HAL Emulator', classification: 'PLATFORM RELEASE', date: 'AUGUST 31, 2026', targetUtc: '2026-08-31T18:29:59Z' },
+  { project: 'Mission More States', classification: 'PROOF OF CONCEPT (POC)', date: 'AUGUST 2, 2026', targetUtc: '2026-08-02T18:29:59Z' },
+  { project: 'ANSA', classification: 'PLATFORM RELEASE', date: 'AUGUST 26, 2026', targetUtc: '2026-08-26T18:29:59Z' },
+  { project: 'Everything in Platform DevOps', classification: 'PUBLIC RELEASE', date: 'DONE TILL YET' },
+  { project: 'Prototyping F7 Layer', classification: 'PROTOTYPING HARDWARE LAYER', date: 'AUGUST 8, 2026', targetUtc: '2026-08-08T18:29:59Z' },
+  { project: 'H7 and ESC', classification: 'HARDWARE RELEASE', date: 'H7 FC: AUGUST 29, 2026, ESC: AUGUST 30, 2026', targetUtc: '2026-08-29T18:29:59Z' },
+  { project: 'Integrating Deryk with DevOps', classification: 'SYSTEM UPDATE', date: 'AUGUST 25, 2026', targetUtc: '2026-08-25T18:29:59Z' },
+  { project: 'World Model Deryk', classification: 'FEATURE RELEASE', date: 'AUGUST 14, 2026', targetUtc: '2026-08-14T18:29:59Z' },
+  { project: 'Aggressive and Predictive Behavior of Deryk', classification: 'FEATURE RELEASE', date: 'AUGUST 18, 2026', targetUtc: '2026-08-18T18:29:59Z' },
+  { project: 'Multi Model Fusion', classification: 'FEATURE RELEASE', date: 'AUGUST 15, 2026', targetUtc: '2026-08-15T18:29:59Z' },
+  { project: 'Swarm/Fleet', classification: 'COMING SOON', date: 'COMING SOON' },
 ];
 
 export function sortLaunches(arr: LaunchData[], ascending = true) {
   return [...arr].sort((a, b) => {
-    const tA = new Date(a.date).getTime();
-    const tB = new Date(b.date).getTime();
+    const tA = new Date(a.targetUtc || a.date).getTime();
+    const tB = new Date(b.targetUtc || b.date).getTime();
     if (isNaN(tA) && isNaN(tB)) return 0;
     if (isNaN(tA)) return 1;
     if (isNaN(tB)) return -1;
