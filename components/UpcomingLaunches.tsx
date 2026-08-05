@@ -148,7 +148,7 @@ export default function UpcomingLaunches() {
       // Take top 2 for dropdown
       const topTwo = sortedData.slice(0, 2).map(l => ({
         title: l.project,
-        image: l.image || 'https://res.cloudinary.com/dq9x4mk1y/image/upload/w_400,h_400,c_fill/v1782859776/WhatsApp_Image_2026-06-30_at_19.48.56_g8owa7.jpg',
+        image: l.image || 'https://res.cloudinary.com/kpa1wv3h/image/upload/v1785937211/WhatsApp_Image_2026-08-04_at_12.45.41_PM_1_wigjed.jpg',
         timeString: formatTimeLocal(l.targetUtc)
       }));
       setDropdownItems(topTwo);
