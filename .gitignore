@@ -41,3 +41,10 @@ next-env.d.ts
 
 # uploads (PII)
 /uploads/
+
+# internal certificate generator (kept local, not published)
+scripts/generate_certificates.py
+
+# generated certificates and their data log (personal data, keep local)
+scripts/output/
+scripts/certificates_log.csv
