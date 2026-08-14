@@ -26,15 +26,33 @@ export const DEFAULT_LAUNCHES: LaunchData[] = [
   { project: 'Telemetry', classification: 'PLATFORM RELEASE', date: 'JULY 25, 2026' },
   { project: 'GUI', classification: 'POC', date: 'JULY 26, 2026' },
   { project: 'DERYK', classification: 'PLATFORM RELEASE', date: 'JULY 30, 2026' },
-  { project: 'Control Logic', classification: 'POC', date: 'AUGUST 1, 2026' },
-  { project: 'H7 Flight Controller', classification: 'HARDWARE RELEASE', date: 'COMING SOON' },
-  { project: 'Nano System', classification: 'HARDWARE RELEASE', date: 'COMING SOON' },
+  { project: 'Mission More States', classification: 'POC', date: 'AUGUST 2, 2026', targetUtc: '2026-08-02T00:00:00Z' },
+  { project: 'GPS Denied Phase 1', classification: 'SYSTEM UPDATE', date: 'AUGUST 3, 2026', targetUtc: '2026-08-03T00:00:00Z' },
+  { project: 'LiDAR V2', classification: 'PLATFORM UPDATE', date: 'AUGUST 4, 2026', targetUtc: '2026-08-04T00:00:00Z' },
+  { project: 'Environment & Weather Simulator', classification: 'PLATFORM RELEASE', date: 'AUGUST 5, 2026', targetUtc: '2026-08-05T00:00:00Z' },
+  { project: 'Zero Sensor', classification: 'SIMULATION UPDATE', date: 'AUGUST 7, 2026', targetUtc: '2026-08-07T00:00:00Z' },
+  { project: 'Prototyping F7 Layer 4 Lite Version', classification: 'HARDWARE RELEASE', date: 'AUGUST 8, 2026', targetUtc: '2026-08-08T00:00:00Z' },
+  { project: 'Manufacturing & Industry Simulator', classification: 'PLATFORM RELEASE', date: 'AUGUST 9, 2026', targetUtc: '2026-08-09T00:00:00Z' },
+  { project: 'Point Cloud', classification: 'SYSTEM UPDATE', date: 'AUGUST 11, 2026', targetUtc: '2026-08-11T00:00:00Z' },
+  { project: 'HAL Simulator', classification: 'SIMULATION UPDATE', date: 'AUGUST 12, 2026', targetUtc: '2026-08-12T00:00:00Z' },
+  { project: 'World Model (DERYK 2.0)', classification: 'AI UPDATE', date: 'AUGUST 14, 2026', targetUtc: '2026-08-14T00:00:00Z' },
+  { project: 'Multimodal Fusion', classification: 'AI UPDATE', date: 'AUGUST 15, 2026', targetUtc: '2026-08-15T00:00:00Z' },
+  { project: 'GPS Denied Phase 2', classification: 'SYSTEM UPDATE', date: 'AUGUST 16, 2026', targetUtc: '2026-08-16T00:00:00Z' },
+  { project: 'Aggressive & Predictive Behaviour (DERYK 2.0)', classification: 'AI UPDATE', date: 'AUGUST 18, 2026', targetUtc: '2026-08-18T00:00:00Z' },
+  { project: 'DERYK Integration with DevOps & Sim', classification: 'PLATFORM UPDATE', date: 'AUGUST 25, 2026', targetUtc: '2026-08-25T00:00:00Z' },
+  { project: 'ANSA V1', classification: 'PLATFORM RELEASE', date: 'AUGUST 26, 2026', targetUtc: '2026-08-26T00:00:00Z' },
+  { project: 'Safety & Fault Detection', classification: 'POC', date: 'AUGUST 26, 2026', targetUtc: '2026-08-26T00:00:00Z' },
+  { project: 'H7 Flight Controller', classification: 'HARDWARE RELEASE', date: 'AUGUST 29, 2026', targetUtc: '2026-08-29T00:00:00Z' },
+  { project: 'GPS Denied', classification: 'PLATFORM UPDATE', date: 'AUGUST 30, 2026', targetUtc: '2026-08-30T00:00:00Z' },
+  { project: 'ESC Prototyping', classification: 'HARDWARE RELEASE', date: 'AUGUST 30, 2026', targetUtc: '2026-08-30T00:00:00Z' },
+  { project: 'S09 HAL Portability Emulator', classification: 'PLATFORM RELEASE', date: 'AUGUST 31, 2026', targetUtc: '2026-08-31T00:00:00Z' },
+  { project: 'Swarm / Fleet', classification: 'COMING SOON', date: 'COMING SOON' },
 ];
 
 export function sortLaunches(arr: LaunchData[], ascending = true) {
   return [...arr].sort((a, b) => {
-    const tA = new Date(a.date).getTime();
-    const tB = new Date(b.date).getTime();
+    const tA = new Date(a.targetUtc || a.date).getTime();
+    const tB = new Date(b.targetUtc || b.date).getTime();
     if (isNaN(tA) && isNaN(tB)) return 0;
     if (isNaN(tA)) return 1;
     if (isNaN(tB)) return -1;
@@ -42,7 +60,7 @@ export function sortLaunches(arr: LaunchData[], ascending = true) {
   });
 }
 
-function formatTimeLocal(utcIso?: string) {
+export function formatTimeLocal(utcIso?: string) {
   if (!utcIso) return 'TIME TBD';
   try {
     const date = new Date(utcIso);
@@ -134,7 +152,7 @@ export default function UpcomingLaunches() {
       // Take top 2 for dropdown
       const topTwo = sortedData.slice(0, 2).map(l => ({
         title: l.project,
-        image: l.image || 'https://res.cloudinary.com/dq9x4mk1y/image/upload/w_400,h_400,c_fill/v1782859776/WhatsApp_Image_2026-06-30_at_19.48.56_g8owa7.jpg',
+        image: l.image || 'https://res.cloudinary.com/kpa1wv3h/image/upload/v1785937211/WhatsApp_Image_2026-08-04_at_12.45.41_PM_1_wigjed.jpg',
         timeString: formatTimeLocal(l.targetUtc)
       }));
       setDropdownItems(topTwo);

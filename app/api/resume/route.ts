@@ -163,6 +163,9 @@ export async function POST(request: NextRequest) {
         name: name.trim(),
         email: email.trim(),
         fileName: sanitizedFilename,
+        savedFileName: uploadedResume.savedFileName,
+        driveFileId: uploadedResume.driveFileId,
+        driveFolderName: uploadedResume.driveFolderName,
       }
     });
 

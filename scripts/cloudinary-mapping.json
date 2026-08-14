@@ -39,5 +39,18 @@
   "/assets/spaceborn-hero-GIF.mp4": "https://res.cloudinary.com/kpa1wv3h/video/upload/v1783382891/spaceborn_assets/spaceborn-hero-GIF.mp4",
   "/assets/spaceborn-transparent-logo.png": "https://res.cloudinary.com/kpa1wv3h/image/upload/v1783382894/spaceborn_assets/spaceborn-transparent-logo.png",
   "/assets/swarm_simulator_img.jpg": "https://res.cloudinary.com/kpa1wv3h/image/upload/v1783382895/spaceborn_assets/swarm_simulator_img.jpg",
-  "/assets/telemetry_simulator_img.jpg": "https://res.cloudinary.com/kpa1wv3h/image/upload/v1783382896/spaceborn_assets/telemetry_simulator_img.jpg"
+  "/assets/telemetry_simulator_img.jpg": "https://res.cloudinary.com/kpa1wv3h/image/upload/v1783382896/spaceborn_assets/telemetry_simulator_img.jpg",
+  "/assets/Swarm&fleetVideo.mp4": "https://res.cloudinary.com/kpa1wv3h/video/upload/v1785781544/WhatsApp_Video_2026-08-03_at_12.34.59_PM_pwanpt.mp4",
+  "/assets/Quadcopter_drone_hovers_in_tunnel_202608030904.mp4" : "https://res.cloudinary.com/kpa1wv3h/video/upload/v1785781462/Quadcopter_drone_hovers_in_tunnel_202608030904_hvg4oj.mp4",
+  "/assets/GPS-denied-video.mp4" : "https://res.cloudinary.com/kpa1wv3h/video/upload/v1785781545/WhatsApp_Video_2026-08-03_at_12.34.57_PM_wereg3.mp4",
+  "/assets/Flight-controller-video.mp4" : "https://res.cloudinary.com/kpa1wv3h/video/upload/v1785781544/WhatsApp_Video_2026-08-03_at_12.35.02_PM_ytgupi.mp4",
+  "/assets/Drone_scanning_wet_tunnel_walls_202608030925.mp4" : "https://res.cloudinary.com/kpa1wv3h/video/upload/v1785781461/Drone_scanning_wet_tunnel_walls_202608030925_ew4qrd.mp4",
+  "/assets/Drone_hovering_in_industrial_set…_202608030937.mp4" : "https://res.cloudinary.com/kpa1wv3h/video/upload/v1785781462/Drone_hovering_in_industrial_set__202608030937_mkwanz.mp4",
+  "/assets/Drone_and_blueprint_glowing_202608030914.mp4" : "https://res.cloudinary.com/kpa1wv3h/video/upload/v1785781462/Drone_and_blueprint_glowing_202608030914_zc2klp.mp4",
+  "/assets/Animate_drone_hovering_place_202608041124.mp4" : "https://res.cloudinary.com/kpa1wv3h/video/upload/v1785862443/Animate_drone_hovering_place_202608041124_lfswum.mp4",
+  "/assets/Animate_scene_with_black_gradient_202608041150.mp4" : "https://res.cloudinary.com/kpa1wv3h/video/upload/v1785862444/Animate_scene_with_black_gradient_202608041150_sg0hvz.mp4",
+  "/assets/Animate_video_with_black_side_202608041141.mp4" : "https://res.cloudinary.com/kpa1wv3h/video/upload/v1785864281/WhatsApp_Video_2026-08-04_at_12.23.58_PM_wsg6oz.mp4",
+  "/assets/VideoProject.mp4" : "https://res.cloudinary.com/kpa1wv3h/video/upload/v1785868057/VideoProject_hzk4kg.mp4",
+  "/assets/Drone_hovering_green_laser_scann…_202608041119.mp4" : "https://res.cloudinary.com/kpa1wv3h/video/upload/v1785862445/Drone_hovering_green_laser_scann__202608041119_pfazd4.mp4",
+  "assets/Drone_hovering_in_concrete_tunnel_202608041116.mp4" : "https://res.cloudinary.com/kpa1wv3h/video/upload/v1785862445/Drone_hovering_in_concrete_tunnel_202608041116_t1pira.mp4"
 }
