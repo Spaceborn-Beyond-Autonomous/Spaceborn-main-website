@@ -299,9 +299,16 @@ export default function HomePage() {
             <div className="video-overlay" />
           </div>
           <div className="section-content">
-            <h1 className="section-title">
-              TELEMETRY <br className="mob-br" />IS <br className="desk-br" />READY <br className="mob-br" />FOR FLIGHT
-            </h1>
+        <h1
+  className="section-title"
+  style={{ fontSize: "45px" }}
+>
+  REAL-TIME INTELLIGENCE,
+  <br />
+  FROM EVERY
+  <br />
+  FLIGHT
+</h1>
             <div className="hero-btn-group">
               <a href="#platforms" className="btn font-mono">
                 explore
