@@ -29,7 +29,7 @@ npm install
 
 In the project directory, you can run the following scripts:
 
-| Command | Description |
+| Command | Description  |
 | :--- | :--- |
 | `npm run dev` | Runs the app in development mode at [http://localhost:3000](http://localhost:3000). |
 | `npm run build` | Builds the application for production usage into the `.next` folder. |
