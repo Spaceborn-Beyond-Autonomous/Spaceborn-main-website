@@ -44,6 +44,9 @@ next-env.d.ts
 
 # internal certificate generator (kept local, not published)
 scripts/generate_certificates.py
+scripts/make_seal.py
+scripts/make_sample_sheet.py
+scripts/certificates_data.xlsx
 
 # generated certificates and their data log (personal data, keep local)
 scripts/output/
