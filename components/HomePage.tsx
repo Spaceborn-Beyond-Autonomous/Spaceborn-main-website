@@ -293,7 +293,6 @@ export default function HomePage() {
               playsInline 
               className="video-background"
             >
-              <source media="(max-width: 1100px)" src="/images/mobile-ui/image1.mp4" type="video/mp4" />
               <source src={optimizeCloudinary("https://res.cloudinary.com/kpa1wv3h/video/upload/v1787235555/Video_Project_ppyupt.mp4")} type="video/mp4" />
             </video>
             <div className="video-overlay" />
