@@ -28,7 +28,7 @@ const simulators: SimulatorData[] = [
     desc: 'The digital heartbeat of ANSA. Every decision, every control loop, and every autonomous action begins here before reaching the real world.',
     cta: 'ENTER THE CORE',
     image: 'https://res.cloudinary.com/kpa1wv3h/image/upload/v1783382885/spaceborn_assets/sitl_kernel_simulator_img.jpg',
-    imageMobile: '/images/mobile-ui/image6.png',
+    imageMobile: '/images/mobile-ui/image6.webp',
     video: optimizeCloudinary('https://res.cloudinary.com/kpa1wv3h/video/upload/v1783382817/spaceborn_assets/ansa-sitl-kernel-gif.mp4'),
   },
   {
@@ -38,7 +38,7 @@ const simulators: SimulatorData[] = [
     desc: 'Build it once. Fly it a thousand times. A living digital replica where systems are tested, broken, and perfected before a single component is manufactured.',
     cta: 'EXPLORE THE DIGITAL TWIN',
     image: 'https://res.cloudinary.com/kpa1wv3h/image/upload/v1783382814/spaceborn_assets/ansa-digital-twin.jpg',
-    imageMobile: '/images/mobile-ui/image7.png',
+    imageMobile: '/images/mobile-ui/image7.webp',
     video: optimizeCloudinary('https://res.cloudinary.com/kpa1wv3h/video/upload/v1783382838/spaceborn_assets/digital-twin-gif.mp4'),
   },
   {
@@ -48,7 +48,7 @@ const simulators: SimulatorData[] = [
     desc: "Failure isn't avoided. It's engineered for. Push autonomous systems through catastrophic scenarios and prove they can survive when everything goes wrong.",
     cta: 'TEST THE LIMITS',
     image: 'https://res.cloudinary.com/kpa1wv3h/image/upload/v1783382846/spaceborn_assets/fault_failure_simulator_img.jpg',
-    imageMobile: '/images/mobile-ui/image8.png',
+    imageMobile: '/images/mobile-ui/image8.webp',
     video: optimizeCloudinary('https://res.cloudinary.com/kpa1wv3h/video/upload/v1783382847/spaceborn_assets/fault_failure_simulator_img.mp4'),
   },
   {
@@ -58,7 +58,7 @@ const simulators: SimulatorData[] = [
     desc: 'When satellites disappear, autonomy takes over. Train intelligent systems to navigate confidently through urban canyons, tunnels, and contested environments.',
     cta: 'ENTER DENIED TERRITORY',
     image: 'https://res.cloudinary.com/kpa1wv3h/image/upload/v1783382852/spaceborn_assets/gps_denied_simulator_img.jpg',
-    imageMobile: '/images/mobile-ui/image9.png',
+    imageMobile: '/images/mobile-ui/image9.webp',
     video: optimizeCloudinary('https://res.cloudinary.com/kpa1wv3h/video/upload/v1785966759/tunnelDrone_nhqulg.mp4'),
   },
   {
@@ -68,7 +68,7 @@ const simulators: SimulatorData[] = [
     desc: 'One vehicle is impressive. One hundred moving as a single intelligence changes everything. Validate coordinated autonomy at fleet scale.',
     cta: 'COMMAND THE SWARM',
     image: 'https://res.cloudinary.com/kpa1wv3h/image/upload/v1783382895/spaceborn_assets/swarm_simulator_img.jpg',
-    imageMobile: '/images/mobile-ui/image10.png',
+    imageMobile: '/images/mobile-ui/image10.webp',
     video: optimizeCloudinary('https://res.cloudinary.com/kpa1wv3h/video/upload/v1786023546/swarmFleet_x4tlds.mp4'),
   },
   {
@@ -78,7 +78,7 @@ const simulators: SimulatorData[] = [
     desc: 'Teach machines to see the world in three dimensions. Generate massive volumes of spatial intelligence for mapping, navigation, and next-generation perception systems.',
     cta: 'EXPLORE MACHINE PERCEPTION',
     image: 'https://res.cloudinary.com/kpa1wv3h/image/upload/v1783382861/spaceborn_assets/lidar-sim-new.jpg',
-    imageMobile: '/images/mobile-ui/image11.png',
+    imageMobile: '/images/mobile-ui/image11.webp',
     video: optimizeCloudinary('https://res.cloudinary.com/kpa1wv3h/video/upload/v1785969537/wetTuneel_tqmtoh.mp4'),
   },
   {
@@ -88,7 +88,7 @@ const simulators: SimulatorData[] = [
     desc: 'Built for the environments where human control becomes impossible. Validate autonomous systems across orbital operations, lunar missions, and the future of deep-space exploration.',
     cta: 'EXPLORE BEYOND EARTH',
     image: 'https://res.cloudinary.com/kpa1wv3h/image/upload/v1783382860/spaceborn_assets/khonshu-space-simulator-img.jpg',
-    imageMobile: '/images/mobile-ui/image12.png',
+    imageMobile: '/images/mobile-ui/image12.webp',
     video: optimizeCloudinary('https://res.cloudinary.com/kpa1wv3h/video/upload/v1783382858/spaceborn_assets/khonshu-space-simulator-gif.mp4'),
   },
   {
@@ -98,7 +98,7 @@ const simulators: SimulatorData[] = [
     desc: 'The difference between a mission and a failure is knowing what happens next. Train AI systems to identify anomalies before they become critical events.',
     cta: 'PREDICT THE UNEXPECTED',
     image: 'https://res.cloudinary.com/kpa1wv3h/image/upload/v1783382896/spaceborn_assets/telemetry_simulator_img.jpg',
-    imageMobile: '/images/mobile-ui/image13.png',
+    imageMobile: '/images/mobile-ui/image13.webp',
     video: optimizeCloudinary('https://res.cloudinary.com/kpa1wv3h/video/upload/v1785958981/0805_kw7l0x.mp4'),
   },
   {
@@ -108,7 +108,7 @@ const simulators: SimulatorData[] = [
     desc: 'One intelligence. Infinite hardware. Certify autonomous systems across platforms without rewriting the software that powers them.',
     cta: 'VALIDATE COMPATIBILITY',
     image: 'https://res.cloudinary.com/kpa1wv3h/image/upload/v1783382853/spaceborn_assets/hal_portability_simulator_img.jpg',
-    imageMobile: '/images/mobile-ui/image14.png',
+    imageMobile: '/images/mobile-ui/image14.webp',
     video: optimizeCloudinary('https://res.cloudinary.com/kpa1wv3h/video/upload/v1783382855/spaceborn_assets/hal_portability_simulator_img.mp4'),
   },
 ];
@@ -334,7 +334,7 @@ export default function HomePage() {
             <div className="video-overlay" />
           </div>
           <div className="image-background-container mobile-only">
-            <img loading="lazy" src="/images/mobile-ui/image2.png" alt="Aligning Human Intent With Robot Action" className="image-background mobile-only" />
+            <img loading="lazy" src="/images/mobile-ui/image2.webp" alt="Aligning Human Intent With Robot Action" className="image-background mobile-only" />
             <div className="overlay-left-dark" />
           </div>
           <div className="section-content">
@@ -369,7 +369,7 @@ export default function HomePage() {
             <LazyVideo autoPlay muted loop playsInline className="image-background explore-ansa-bg desktop-only">
               <source src={optimizeCloudinary("https://res.cloudinary.com/kpa1wv3h/video/upload/v1783382844/spaceborn_assets/explore-ansa-img.mp4")} type="video/mp4" />
             </LazyVideo>
-            <img loading="lazy" src="/images/mobile-ui/image3.png" alt="Making Autonomy Human-Centric" className="image-background explore-ansa-bg mobile-only" />
+            <img loading="lazy" src="/images/mobile-ui/image3.webp" alt="Making Autonomy Human-Centric" className="image-background explore-ansa-bg mobile-only" />
             <div className="overlay-right-dark" />
           </div>
           <div className="section-content">
@@ -413,7 +413,7 @@ export default function HomePage() {
             <div className="overlay-left-dark" />
           </div>
           <div className="image-background-container mobile-only">
-            <img loading="lazy" src="/images/mobile-ui/image4.png" alt="Building the Systems of Autonomy" className="image-background systems-autonomy-bg" />
+            <img loading="lazy" src="/images/mobile-ui/image4.webp" alt="Building the Systems of Autonomy" className="image-background systems-autonomy-bg" />
             <div className="overlay-left-dark" />
           </div>
           <div className="section-content">
@@ -447,7 +447,7 @@ export default function HomePage() {
             <LazyVideo autoPlay muted loop playsInline className="image-background join-mission-bg desktop-only">
               <source src={optimizeCloudinary("https://res.cloudinary.com/kpa1wv3h/video/upload/v1785966524/womanAndDrone_xjbmqm.mp4")} type="video/mp4" />
             </LazyVideo>
-            <img loading="lazy" src="/images/mobile-ui/image5.png" alt="Join Our Mission" className="image-background join-mission-bg mobile-only" />
+            <img loading="lazy" src="/images/mobile-ui/image5.webp" alt="Join Our Mission" className="image-background join-mission-bg mobile-only" />
             <div className="overlay-right-dark" />
           </div>
           <div className="section-content">
