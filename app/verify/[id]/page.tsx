@@ -89,7 +89,7 @@ function ValidCertificate({ certificate }: { certificate: CertificateRecord }) {
       <DetailRow label="Certificate ID" value={certificate.certificate_id} />
 
       <p className="font-mono" style={{ marginTop: 24, fontSize: 11, color: 'var(--dim)' }}>
-        Spaceborn — Beyond Autonomous | Applied via SPICe+ | MCA. Govt of India
+        Spaceborn Private Limited — Beyond Autonomous | CIN: U62011TN2026PTC196806 | MCA, Govt of India
       </p>
     </div>
   );
