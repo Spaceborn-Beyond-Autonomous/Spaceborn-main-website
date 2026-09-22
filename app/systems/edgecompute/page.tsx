@@ -9,6 +9,7 @@ export default function EdgeComputePage() {
   return (
     <CompanyPageLayout
       title="EDGE COMPUTE"
+      variant="platform"
       subtitle="Intelligence at the Edge. Decisions in Real Time."
       paragraphs={[
         'Edge Compute is Spaceborn\'s onboard computing platform designed to bring high-performance processing, artificial intelligence, and autonomous decision-making directly to intelligent machines. Rather than relying on cloud connectivity for computation, Edge Compute enables autonomous systems to analyze sensor data, execute AI models, make navigation decisions, and respond to dynamic environments entirely on the vehicle itself, ensuring low-latency performance even in disconnected or mission-critical environments.',

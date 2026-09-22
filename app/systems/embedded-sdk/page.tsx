@@ -9,6 +9,7 @@ export default function EmbeddedSdkPage() {
   return (
     <CompanyPageLayout
       title="EMBEDDED SDK"
+      variant="platform"
       subtitle="Build Once. Integrate Everywhere."
       paragraphs={[
         "The Embedded SDK is Spaceborn's software development kit for embedded systems, hardware integration, and autonomous platforms. It provides developers with APIs, libraries, drivers, firmware tools, and documentation required to build intelligent embedded applications.",

@@ -9,6 +9,7 @@ export default function PartnersPage() {
   return (
     <CompanyPageLayout
       title="PARTNERS"
+      variant="platform"
       subtitle="Building the Future Together."
       paragraphs={[
         'Innovation is rarely achieved alone. At Spaceborn, we collaborate with organizations that share our vision of advancing intelligent autonomous systems through technology, research, and engineering excellence.',

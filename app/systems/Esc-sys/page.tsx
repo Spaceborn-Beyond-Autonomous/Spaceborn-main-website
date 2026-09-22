@@ -9,6 +9,7 @@ export default function EscSystemsPage() {
   return (
     <CompanyPageLayout
       title="ESC SYSTEMS"
+      variant="platform"
       subtitle="Intelligent Power Delivery for Autonomous Platforms."
       paragraphs={[
         'Spaceborn Electronic Speed Controller (ESC) Systems are high-performance motor control solutions engineered to provide precise, reliable, and efficient power management for autonomous aerial and robotic platforms. Acting as the critical interface between the flight controller and electric motors, ESC Systems ensure smooth motor operation, rapid response to control inputs, and dependable performance across a wide range of mission profiles.',

@@ -9,6 +9,7 @@ export default function GPSDeniedNavigationPage() {
   return (
     <CompanyPageLayout
       title="GPS-DENIED NAVIGATION"
+      variant="platform"
       subtitle="Navigate Anywhere. Even Without GPS."
       paragraphs={[
         'GPS-Denied Navigation is Spaceborn\'s navigation framework designed to enable autonomous systems to operate reliably in environments where Global Positioning System (GPS) signals are unavailable, unreliable, degraded, or intentionally disrupted. By combining multiple sensing technologies with intelligent localization algorithms, the platform ensures continuous navigation and mission execution even in the most challenging operating conditions.',

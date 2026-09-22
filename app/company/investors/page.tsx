@@ -9,6 +9,7 @@ export default function InvestorsPage() {
   return (
     <CompanyPageLayout
       title="INVESTORS"
+      variant="platform"
       subtitle="Building the Future of Autonomy."
       paragraphs={[
         'Spaceborn is building the software infrastructure that powers the next generation of autonomous systems across robotics, aerospace, enterprise, and intelligent industries.',

@@ -9,6 +9,7 @@ export default function ContactPage() {
   return (
     <CompanyPageLayout
       title="CONTACT"
+      variant="platform"
       subtitle="Let's Build the Future Together."
       paragraphs={[
         "Whether you're exploring our platforms, interested in a partnership, looking for technical support, or simply want to learn more about Spaceborn, we'd love to hear from you.",

@@ -9,6 +9,7 @@ export default function CareersPage() {
   return (
     <CompanyPageLayout
       title="CAREERS"
+      variant="platform"
       subtitle="Build the Future of Intelligent Machines."
       paragraphs={[
         "At Spaceborn, we're building the technologies that will power the next generation of autonomous systems. From drones and robotics to industrial automation and future aerospace platforms, our work sits at the intersection of artificial intelligence, simulation, autonomy, and advanced software engineering.",
