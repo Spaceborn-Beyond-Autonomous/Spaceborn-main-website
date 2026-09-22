@@ -9,6 +9,7 @@ export default function MissionStudioPage() {
   return (
     <CompanyPageLayout
       title="MISSION STUDIO"
+      variant="platform"
       subtitle="Mission Planning Made Simple."
       paragraphs={[
         'Mission Studio is Spaceborn\'s mission planning and orchestration platform, designed to simplify the process of creating, managing, and executing autonomous operations. It provides operators, developers, and mission planners with an intuitive environment to design complex missions without sacrificing the flexibility required for advanced autonomous systems.',

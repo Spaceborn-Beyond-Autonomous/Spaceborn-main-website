@@ -9,6 +9,7 @@ export default function TelemetryPage() {
   return (
     <CompanyPageLayout
       title="TELEMETRY"
+      variant="platform"
       subtitle="Every Mission. Every Sensor. Every Insight."
       paragraphs={[
         'Telemetry is Spaceborn\'s real-time data acquisition, monitoring, and analytics platform that provides continuous visibility into the health, performance, and operational status of autonomous systems. It enables developers, operators, and organizations to collect, visualize, analyze, and replay mission data, transforming raw sensor information into actionable insights that improve system reliability, operational efficiency, and mission success.',

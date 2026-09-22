@@ -9,6 +9,7 @@ export default function FlightControllersPage() {
   return (
     <CompanyPageLayout
       title="FLIGHT CONTROLLERS"
+      variant="platform"
       subtitle="Precision Control at the Core of Every Autonomous System."
       paragraphs={[
         'Spaceborn Flight Controllers are the real-time control systems that serve as the central computing unit for autonomous aerial platforms. Acting as the bridge between high-level autonomy software and physical hardware, they continuously process sensor data, execute flight control algorithms, and manage communication between onboard components to ensure safe, stable, and reliable operation throughout every mission.',

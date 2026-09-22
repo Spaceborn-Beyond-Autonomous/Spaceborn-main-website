@@ -9,6 +9,7 @@ export default function LeadershipPage() {
   return (
     <CompanyPageLayout
       title="LEADERSHIP"
+      variant="platform"
       subtitle="Building the Future Through Vision, Innovation, and Engineering Excellence."
       paragraphs={[
         'At Spaceborn, leadership is driven by a shared commitment to advancing autonomous technologies that solve meaningful real-world challenges. Our leadership team brings together expertise in software engineering, artificial intelligence, robotics, aerospace systems, and product development to build technologies that define the future of intelligent machines.',

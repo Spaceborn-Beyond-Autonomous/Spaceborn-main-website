@@ -9,6 +9,7 @@ export default function AboutPage() {
   return (
     <CompanyPageLayout
       title="ABOUT SPACEBORN"
+      variant="platform"
       subtitle="Building the Future of Intelligent Autonomy."
       paragraphs={[
         'Spaceborn is an autonomous systems technology company dedicated to building the software infrastructure that powers the next generation of intelligent machines. We develop platforms, simulation technologies, and autonomy solutions that enable drones, robots, industrial systems, and future aerospace platforms to perceive their surroundings, make intelligent decisions, and execute complex missions with confidence.',

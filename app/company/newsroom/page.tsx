@@ -9,6 +9,7 @@ export default function NewsroomPage() {
   return (
     <CompanyPageLayout
       title="NEWSROOM"
+      variant="platform"
       subtitle="The Latest From Spaceborn."
       paragraphs={[
         "The Newsroom serves as Spaceborn's official communication platform for company announcements, product updates, engineering insights, research developments, and industry perspectives.",

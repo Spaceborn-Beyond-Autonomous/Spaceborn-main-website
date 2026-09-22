@@ -9,6 +9,7 @@ export default function CertanityPage() {
   return (
     <CompanyPageLayout
       title="CERTANITY"
+      variant="platform"
       subtitle="Develop. Simulate. Validate. Deploy."
       paragraphs={[
         "Certanity is Spaceborn's autonomous systems development and simulation platform designed to accelerate the creation, testing, and validation of intelligent machines. It provides developers, researchers, and organizations with realistic virtual environments where autonomous software can be safely designed, evaluated, and optimized before deployment.",

@@ -29,6 +29,7 @@ export default function AnsaPage() {
   return (
     <CompanyPageLayout
       title="ANSA"
+      variant="platform"
       subtitle="The Autonomy Platform for Intelligent Machines"
       paragraphs={[
         "ANSA is Spaceborn's core autonomy platform designed to power intelligent machines operating in complex, dynamic environments. It provides the software foundation that enables drones, robots, autonomous vehicles, and future aerospace systems to perceive their surroundings, understand mission objectives, make decisions, and execute actions safely and reliably.",

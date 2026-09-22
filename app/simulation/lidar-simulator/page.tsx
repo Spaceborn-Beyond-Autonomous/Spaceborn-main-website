@@ -9,6 +9,7 @@ export default function LidarSimulatorPage() {
   return (
     <CompanyPageLayout
       title="LIDAR SIMULATOR"
+      variant="platform"
       subtitle="Simulating Vision Beyond Sight."
       paragraphs={[
         "The LiDAR Simulator is Spaceborn's sensor simulation platform that generates realistic LiDAR data inside virtual environments. It enables developers to build, train, and validate perception algorithms without requiring expensive physical sensors or field testing.",

@@ -9,6 +9,7 @@ export default function SwarmSimPage() {
   return (
     <CompanyPageLayout
       title="SWARM SIMULATOR"
+      variant="platform"
       subtitle="Simulate Hundreds. Coordinate Thousands."
       paragraphs={[
         'Swarm Simulator is Spaceborn\'s large-scale multi-agent simulation platform designed to develop, test, and validate coordinated autonomous systems operating as intelligent swarms. It enables developers to simulate hundreds or even thousands of autonomous drones, robots, and vehicles working together in complex environments before deploying them in the real world.',

@@ -10,6 +10,7 @@ export default function FleetManagerPage() {
     <CompanyPageLayout
     
       title="FLEET MANAGER"
+      variant="platform"
       subtitle="Operate Every Machine From One Platform."
       paragraphs={[
         'Fleet Manager is Spaceborn\'s centralized command and fleet management platform, built to monitor, control, and coordinate autonomous systems operating across multiple locations and missions. Whether managing a handful of robots or thousands of autonomous platforms, Fleet Manager provides operators with complete visibility into the health, status, and performance of every connected system from a single interface.',
