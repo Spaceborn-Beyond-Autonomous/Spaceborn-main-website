@@ -89,6 +89,11 @@
 @media(max-width:680px){.reference-principles,.reference-thesis,.reference-architecture,.reference-areas,.reference-action,.reference-careers{padding:58px 20px}.principle-tags{grid-template-columns:repeat(2,1fr)}.reference-thesis{grid-template-columns:1fr}.world-loop{margin-top:25px}.reference-heading{display:block}.reference-heading>span:last-child{display:block;margin-top:12px}.stack-layout{grid-template-columns:1fr;padding:18px;min-height:520px}.stack-worlds{display:none}.stack-layers div{grid-template-columns:24px 1fr}.stack-layers small{display:none}.area-cards{grid-template-columns:1fr}.area-card:nth-child(n+2){display:none}.action-steps{grid-template-columns:1fr 1fr}.action-steps>div:nth-child(n+3){display:none}.reference-careers{display:block}.careers-word{display:block;margin-top:35px}.reference-careers>div>div{flex-wrap:wrap}}
 
 .area-art{background-image:url('/images/deryk-physical-world.svg')!important;background-size:cover!important;background-position:center!important}.area-image-1 .area-art{background-image:url('/images/deryk-digital-world.svg')!important}.area-image-2 .area-art{background-image:url('/images/deryk-neural-world.svg')!important}.area-image-3 .area-art{background-image:url('/images/deryk-gaming-world.svg')!important}.area-image-4 .area-art{background-image:url('/images/deryk-platform-world.svg')!important}.area-card{transition:transform .25s,border-color .25s,box-shadow .25s}.area-card:hover{transform:translateY(-5px);border-color:#477b2b;box-shadow:0 15px 30px rgba(17,21,19,.1)}
+.area-image-0 .area-art{background-image:url('/images/deryk-agi.jpeg')!important;background-size:155% auto!important;background-position:center center!important}
+.area-image-1 .area-art{background-image:url('/images/deryk-physical.jpeg')!important;background-size:cover!important;background-position:center center!important}
+.area-image-2 .area-art{background-image:url('/images/deryk-neural.jpeg')!important;background-size:cover!important;background-position:center center!important}
+.area-image-3 .area-art{background-image:url('/images/deryk-gaming.jpeg')!important;background-size:cover!important;background-position:center center!important}
+.area-image-4 .area-art{background-image:url('/images/deryk-platform.jpeg')!important;background-size:cover!important;background-position:center center!important}
 .mission-control:not(.intelligence-page) .reference-button{color:#111513!important;background:#f4f5f0}.mission-control:not(.intelligence-page) .reference-text-link{color:#f4f5f0!important}.mission-control:not(.intelligence-page) .mission-footer{background:#0b1112;color:rgba(244,245,240,.6);border-top-color:rgba(244,245,240,.16)}.mission-control:not(.intelligence-page) .mission-footer span{color:rgba(244,245,240,.6)}
 
 /* The supplied wordmark is a black-on-black image; keep it inside the dark hero shell. */
@@ -207,3 +212,9 @@
 	.mission-control:not(.intelligence-page) .stack-layers span,
 	.mission-control:not(.intelligence-page) .stack-layers small { font-size: 10px; }
 }
+
+.action-art-0 { background-image: url('/images/deryk-sense.jpeg') !important; background-size: cover !important; background-position: center !important; }
+.action-art-1 { background-image: url('/images/deryk-understand.jpeg') !important; background-size: cover !important; background-position: center !important; }
+.action-art-2 { background-image: url('/images/deryk-predict.jpeg') !important; background-size: cover !important; background-position: center !important; }
+.action-art-3 { background-image: url('/images/deryk-decide.jpeg') !important; background-size: cover !important; background-position: center !important; }
+.action-art-4 { background-image: url('/images/deryk-execute.jpeg') !important; background-size: cover !important; background-position: center !important; }
