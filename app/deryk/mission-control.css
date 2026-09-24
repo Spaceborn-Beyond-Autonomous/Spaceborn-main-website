@@ -218,3 +218,49 @@
 .action-art-2 { background-image: url('/images/deryk-predict.jpeg') !important; background-size: cover !important; background-position: center !important; }
 .action-art-3 { background-image: url('/images/deryk-decide.jpeg') !important; background-size: cover !important; background-position: center !important; }
 .action-art-4 { background-image: url('/images/deryk-execute.jpeg') !important; background-size: cover !important; background-position: center !important; }
+
+.mission-control:not(.intelligence-page) .mission-nav {
+	height: 78px;
+	padding-inline: clamp(24px, 6vw, 96px);
+	display: flex;
+	align-items: center;
+	gap: 28px;
+}
+
+.mission-control:not(.intelligence-page) .mission-nav > a {
+	flex: 0 0 auto;
+}
+
+.mission-control:not(.intelligence-page) .mission-nav nav {
+	margin-left: auto;
+	display: flex;
+	align-items: center;
+	gap: clamp(20px, 3vw, 44px);
+}
+
+.mission-control:not(.intelligence-page) .mission-nav nav a {
+	white-space: nowrap;
+}
+
+.mission-control:not(.intelligence-page) .mission-nav .mission-nav-button {
+	min-height: 48px;
+	padding: 0 18px;
+	justify-content: center;
+}
+
+@media (max-width: 1050px) {
+	.mission-control:not(.intelligence-page) .mission-nav {
+		padding-inline: 32px;
+	}
+
+	.mission-control:not(.intelligence-page) .mission-nav nav {
+		gap: 22px;
+	}
+}
+
+@media (max-width: 680px) {
+	.mission-control:not(.intelligence-page) .mission-nav {
+		height: 70px;
+		padding-inline: 20px;
+	}
+}

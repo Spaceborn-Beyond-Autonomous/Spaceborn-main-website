@@ -88,7 +88,7 @@ function DerykPage() {
   const matrix = useMemo(() => Array.from({ length: 66 }, (_, index) => index), []);
 
   return <div className="mission-control" id="top">
-    <header className="mission-nav"><a href="#top" aria-label="DERYK home"><Mark /></a><span className="mission-nav-status"><i /> SYSTEM / DERYK-01</span><nav><a href="#architecture">Architecture</a><a href="#worlds">Worlds</a><a href="#capabilities">Capabilities</a><a href="#careers">Careers</a><a className="mission-nav-button" href="#architecture">Explore DERYK <ArrowRight size={13} /></a></nav></header>
+    <header className="mission-nav"><a href="#top" aria-label="DERYK home"><Mark /></a><nav><a href="#architecture">Architecture</a><a href="#worlds">Worlds</a><a href="#capabilities">Capabilities</a><a href="#careers">Careers</a><a className="mission-nav-button" href="#architecture">Explore DERYK <ArrowRight size={13} /></a></nav></header>
 
     <main>
       <section className="mission-hero"><video className="hero-video" autoPlay muted loop playsInline aria-hidden="true"><source src="/images/deryk-hero-video.mp4" type="video/mp4" /></video><div className="hero-editorial"><span className="eyebrow">DERYK / AUTONOMOUS MISSION SYSTEM</span><h1>Autonomy,<br /><em>with receipts.</em></h1><p>A mission-control intelligence layer for planning, enforcing, executing and observing autonomous operations.</p><div className="hero-actions"><a className="mission-button primary" href="#architecture">Explore the architecture <ArrowRight size={15} /></a><a className="mission-button text" href="#worlds">Explore DERYK <ArrowDownRight size={15} /></a></div><div className="hero-footnote"><span>SIMULATED DEMO ENVIRONMENT</span><span>NO LIVE HARDWARE CONNECTED</span></div></div></section>
