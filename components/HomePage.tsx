@@ -112,12 +112,99 @@ const simulators: SimulatorData[] = [
     video: optimizeCloudinary('https://res.cloudinary.com/kpa1wv3h/video/upload/v1783382855/spaceborn_assets/hal_portability_simulator_img.mp4'),
   },
 ];
+type TypewriterHeadingProps = {
+  lines: string[];
+  as?: 'h1' | 'h2' | 'h3';
+  className?: string;
+  style?: React.CSSProperties;
+  charSpeed?: number;
+  lineDelay?: number;
+};
 
+function TypewriterHeading({
+  lines,
+  as = 'h2',
+  className = '',
+  style,
+  charSpeed = 45,
+  lineDelay = 150,
+}: TypewriterHeadingProps) {
+  const [typedLines, setTypedLines] = useState<string[]>(lines.map(() => ''));
+  const [hasStarted, setHasStarted] = useState(false);
+  const elRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = elRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !hasStarted) {
+            setHasStarted(true);
+          }
+        });
+      },
+      { threshold: 0.4 }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [hasStarted]);
+
+  useEffect(() => {
+    if (!hasStarted) return;
+
+    let stage = 0;
+    let charIndex = 0;
+    let timeoutId: ReturnType<typeof setTimeout>;
+
+    const typeNext = () => {
+      if (stage >= lines.length) return;
+
+      const currentLine = lines[stage];
+
+      if (charIndex <= currentLine.length) {
+        const sliced = currentLine.slice(0, charIndex);
+        setTypedLines((prev) => {
+          const updated = [...prev];
+          updated[stage] = sliced;
+          return updated;
+        });
+        charIndex++;
+        timeoutId = setTimeout(typeNext, charSpeed);
+      } else {
+        stage++;
+        charIndex = 0;
+        timeoutId = setTimeout(typeNext, lineDelay);
+      }
+    };
+
+    timeoutId = setTimeout(typeNext, 200);
+    return () => clearTimeout(timeoutId);
+  }, [hasStarted, lines, charSpeed, lineDelay]);
+
+  const Tag = as;
+
+  return (
+    <div ref={elRef}>
+      <Tag className={className} style={style}>
+        {typedLines.map((line, i) => (
+          <span key={i}>
+            {line}
+            {i < typedLines.length - 1 && <br />}
+          </span>
+        ))}
+      </Tag>
+    </div>
+  );
+}
 export default function HomePage() {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isHeroMuted, setIsHeroMuted] = useState(true);
   const [isResumeModalOpen, setIsResumeModalOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>('releases');
+  const [typedHero, setTypedHero] = useState({ line1: "", line2: "", line3: "" }); 
 
   const containerRef = useRef<HTMLDivElement>(null);
   const heroVideoRef = useRef<HTMLVideoElement>(null);
@@ -142,6 +229,62 @@ export default function HomePage() {
     });
   }, []);
 
+  useEffect(() => {
+  const video = heroVideoRef.current;
+  if (!video) return;
+
+  video.muted = true;
+  setIsHeroMuted(true);
+
+  video.play().catch((error) => {
+    console.log("Muted autoplay blocked initially:", error);
+  });
+}, []);
+
+// ← NEW: typewriter effect for hero heading
+useEffect(() => {
+  const line1 = "REAL-TIME INTELLIGENCE,";
+  const line2 = "FROM EVERY";
+  const line3 = "FLIGHT";
+
+  let stage = 1;
+  let charIndex = 0;
+  let timeoutId: ReturnType<typeof setTimeout>;
+
+  const typeNext = () => {
+    if (stage === 1) {
+      if (charIndex <= line1.length) {
+        setTypedHero((prev) => ({ ...prev, line1: line1.slice(0, charIndex) }));
+        charIndex++;
+        timeoutId = setTimeout(typeNext, 45);
+      } else {
+        stage = 2;
+        charIndex = 0;
+        timeoutId = setTimeout(typeNext, 150);
+      }
+    } else if (stage === 2) {
+      if (charIndex <= line2.length) {
+        setTypedHero((prev) => ({ ...prev, line2: line2.slice(0, charIndex) }));
+        charIndex++;
+        timeoutId = setTimeout(typeNext, 45);
+      } else {
+        stage = 3;
+        charIndex = 0;
+        timeoutId = setTimeout(typeNext, 150);
+      }
+    } else if (stage === 3) {
+      if (charIndex <= line3.length) {
+        setTypedHero((prev) => ({ ...prev, line3: line3.slice(0, charIndex) }));
+        charIndex++;
+        timeoutId = setTimeout(typeNext, 45);
+      }
+    }
+  };
+
+  timeoutId = setTimeout(typeNext, 300);
+
+  return () => clearTimeout(timeoutId);
+}, []);
   // Intersection Observer to track active section / simulator panel
   useEffect(() => {
     const observerOptions = {
@@ -298,16 +441,11 @@ export default function HomePage() {
             <div className="video-overlay" />
           </div>
           <div className="section-content">
-        <h1
+         <TypewriterHeading
+  as="h2"
   className="section-title"
-  style={{ fontSize: "45px" }}
->
-  REAL-TIME INTELLIGENCE,
-  <br />
-  FROM EVERY
-  <br />
-  FLIGHT
-</h1>
+  lines={['REAL-TIME INTELLIGENCE,', 'FROM EVERY', 'FLIGHT']}
+/>
             <div className="hero-btn-group">
               <a href="#platforms" className="btn font-mono">
                 explore
@@ -338,11 +476,11 @@ export default function HomePage() {
             <div className="overlay-left-dark" />
           </div>
           <div className="section-content">
-            <h2 className="section-title">
-              ALIGNING HUMAN <br />
-              INTENT WITH <br />
-              ROBOT ACTION
-            </h2>
+            <TypewriterHeading
+  as="h2"
+  className="section-title"
+  lines={['ALIGNING HUMAN', 'INTENT WITH', 'ROBOT ACTION']}
+/>
             <p className="section-body desktop-only">
               We believe a future where anyone can work with autonomous <br className="desk-br" />
               systems through natural conversation is fundamentally <br className="desk-br" />
@@ -373,10 +511,11 @@ export default function HomePage() {
             <div className="overlay-right-dark" />
           </div>
           <div className="section-content">
-            <h2 className="section-title">
-              MAKING <br className="mob-br" />AUTONOMY <br />
-              HUMAN-CENTRIC
-            </h2>
+           <TypewriterHeading
+  as="h2"
+  className="section-title"
+  lines={['MAKING AUTONOMY', 'HUMAN-CENTRIC']}
+/>
             <p className="section-body desktop-only">
               ANSA is a complete autonomous intelligence platform designed to <br />
               enable robots and drones to understand human intent, navigate complex <br />
@@ -417,11 +556,11 @@ export default function HomePage() {
             <div className="overlay-left-dark" />
           </div>
           <div className="section-content">
-            <h2 className="section-title">
-              BUILDING THE <br />
-              SYSTEMS <br className="mob-br" />OF <br />
-              AUTONOMY
-            </h2>
+           <TypewriterHeading
+  as="h2"
+  className="section-title"
+  lines={['BUILDING THE', 'SYSTEMS OF', 'AUTONOMY']}
+/>
             <p className="section-body desktop-only">
               Spaceborn develops flight controllers, autonomous intelligence <br />
               platforms, and next-generation robotic systems designed to power the <br />
@@ -451,11 +590,11 @@ export default function HomePage() {
             <div className="overlay-right-dark" />
           </div>
           <div className="section-content">
-            <h2 className="section-title">
-              PUTTING HUMANS<br />
-              AT THE CENTER<br />
-              OF AUTONOMY
-            </h2>
+            <TypewriterHeading
+  as="h2"
+  className="section-title"
+  lines={['PUTTING HUMANS', 'AT THE CENTER', 'OF AUTONOMY']}
+/>
             <p className="section-body desktop-only">
               Spaceborn was founded on the belief that robots should adapt to humans, not the<br />
               other way around. We are building the intelligence layer that enables autonomous<br />
@@ -531,7 +670,11 @@ export default function HomePage() {
                   </div>
                 )}
                 <div className="sim-content" style={{ position: 'relative', zIndex: 2 }}>
-                  <h3 className="sim-title">{sim.title}</h3>
+                  <TypewriterHeading
+  as="h3"
+  className="sim-title"
+  lines={[sim.title]}
+/>
                   <p className="sim-desc">{sim.desc}</p>
                   <a href="#releases" className="btn font-mono">
                     {sim.cta}
