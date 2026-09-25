@@ -13,7 +13,7 @@ export default function DownloadsComingSoon() {
 
       <main className="coming-soon-main-container">
         <div className="coming-soon-content-box">
-          <h1 className="coming-soon-title font-ethno">COMING SOON</h1>
+          <h1 className="coming-soon-title font-ethno">COMING SOON.....</h1>
         </div>
         <Footer isHome={false} />
       </main>
