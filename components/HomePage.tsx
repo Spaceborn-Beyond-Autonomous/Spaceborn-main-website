@@ -180,8 +180,14 @@ function TypewriterHeading({
       }
     };
 
+      if (typeof document !== 'undefined' && document.fonts?.load) {
+    document.fonts.load('1em Ethnocentric').finally(() => {
+      timeoutId = setTimeout(typeNext, 200);
+    });
+  } else {
     timeoutId = setTimeout(typeNext, 200);
-    return () => clearTimeout(timeoutId);
+  }
+  return () => clearTimeout(timeoutId);
   }, [hasStarted, lines, charSpeed, lineDelay]);
 
   const Tag = as;
@@ -204,7 +210,7 @@ export default function HomePage() {
   const [isHeroMuted, setIsHeroMuted] = useState(true);
   const [isResumeModalOpen, setIsResumeModalOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>('releases');
-  const [typedHero, setTypedHero] = useState({ line1: "", line2: "", line3: "" }); 
+  
 
   const containerRef = useRef<HTMLDivElement>(null);
   const heroVideoRef = useRef<HTMLVideoElement>(null);
@@ -241,50 +247,7 @@ export default function HomePage() {
   });
 }, []);
 
-// ← NEW: typewriter effect for hero heading
-useEffect(() => {
-  const line1 = "REAL-TIME INTELLIGENCE,";
-  const line2 = "FROM EVERY";
-  const line3 = "FLIGHT";
 
-  let stage = 1;
-  let charIndex = 0;
-  let timeoutId: ReturnType<typeof setTimeout>;
-
-  const typeNext = () => {
-    if (stage === 1) {
-      if (charIndex <= line1.length) {
-        setTypedHero((prev) => ({ ...prev, line1: line1.slice(0, charIndex) }));
-        charIndex++;
-        timeoutId = setTimeout(typeNext, 45);
-      } else {
-        stage = 2;
-        charIndex = 0;
-        timeoutId = setTimeout(typeNext, 150);
-      }
-    } else if (stage === 2) {
-      if (charIndex <= line2.length) {
-        setTypedHero((prev) => ({ ...prev, line2: line2.slice(0, charIndex) }));
-        charIndex++;
-        timeoutId = setTimeout(typeNext, 45);
-      } else {
-        stage = 3;
-        charIndex = 0;
-        timeoutId = setTimeout(typeNext, 150);
-      }
-    } else if (stage === 3) {
-      if (charIndex <= line3.length) {
-        setTypedHero((prev) => ({ ...prev, line3: line3.slice(0, charIndex) }));
-        charIndex++;
-        timeoutId = setTimeout(typeNext, 45);
-      }
-    }
-  };
-
-  timeoutId = setTimeout(typeNext, 300);
-
-  return () => clearTimeout(timeoutId);
-}, []);
   // Intersection Observer to track active section / simulator panel
   useEffect(() => {
     const observerOptions = {

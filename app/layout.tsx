@@ -27,6 +27,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link
+  rel="preload"
+  href="/fonts/Ethnocentric-Regular.otf"
+  as="font"
+  type="font/otf"
+  crossOrigin="anonymous"
+/>
+      </head>
       <body>
         <PageTransition>{children}</PageTransition>
       </body>
