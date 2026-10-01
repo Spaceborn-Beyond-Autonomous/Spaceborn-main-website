@@ -10,6 +10,7 @@
     "drive:auth": "node scripts/google-drive-oauth.cjs"
   },
   "dependencies": {
+    "@types/three": "^0.186.0",
     "cloudinary": "^2.10.0",
     "dotenv": "^17.4.2",
     "framer-motion": "^13.2.0",
@@ -19,7 +20,8 @@
     "nodemailer": "^9.1.1",
     "pg": "^8.22.0",
     "react": "^19.2.7",
-    "react-dom": "^19.2.7"
+    "react-dom": "^19.2.7",
+    "three": "^0.186.1"
   },
   "devDependencies": {
     "@types/node": "latest",
