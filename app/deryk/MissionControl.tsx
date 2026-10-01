@@ -3,6 +3,7 @@
 import { useMemo, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowDownRight, ArrowRight, Bot, BrainCircuit, Check, ChevronDown, CircleDot, Database, Gamepad2, Globe2, Layers3, LockKeyhole, Network, Radio, ShieldCheck, Sparkles, Terminal, Waves, Zap } from 'lucide-react';
+import ImmersiveMissionReplay from './MissionReplay';
 import './mission-control.css';
 
 const lifecycle = [
@@ -44,6 +45,96 @@ const productAreas = [
   { label: '02 / PLATFORM AI', title: 'The shared foundation underneath.', copy: 'APIs, services, identity, model integrations, memory, and serving infrastructure for environment-aware intelligence.', products: ['AI Platform', 'AI Services', 'AI Runtime', 'Environment Interface Layer'] },
   { label: '03 / GAMING AI', title: 'World-aware game intelligence.', copy: 'Persistent, state-aware, perceptive agents that respond to players and evolving game worlds.', products: ['NPC Intelligence SDK', 'Adaptive Opponent', 'Gaming Intelligence SDK'] },
 ];
+
+const replayEvents = [
+  { time: 0, label: 'MISSION INITIALIZED', phase: 'OBSERVE' },
+  { time: 10, label: 'MISSION STARTED', phase: 'ACT' },
+  { time: 20, label: 'OBJECTS DETECTED', phase: 'OBSERVE' },
+  { time: 30, label: 'WORLD MODEL UPDATED', phase: 'MODEL' },
+  { time: 45, label: 'PATH BLOCKED', phase: 'OBSERVE' },
+  { time: 50, label: '3 POSSIBLE FUTURES', phase: 'PREDICT' },
+  { time: 60, label: 'TRAJECTORY 02 SELECTED', phase: 'DECIDE' },
+  { time: 70, label: 'MANEUVER EXECUTED', phase: 'ACT' },
+  { time: 80, label: 'WORLD STATE UPDATED', phase: 'OBSERVE' },
+  { time: 120, label: 'TARGET REACHED', phase: 'ACT' },
+] as const;
+
+const replayPhases = ['OBSERVE', 'MODEL', 'PREDICT', 'DECIDE', 'ACT'];
+
+function MissionReplay() {
+  const [replayTime, setReplayTime] = useState(0);
+  const replayEvent = [...replayEvents].reverse().find((event) => replayTime >= event.time) ?? replayEvents[0];
+  const missionProgress = Math.min(replayTime / 120, 1);
+  const droneX = 88 + missionProgress * 442;
+  const approachProgress = Math.min(Math.max((replayTime - 60) / 60, 0), 1);
+  const droneY = 222 - approachProgress * 92;
+  const obstacleVisible = replayTime >= 45 && replayTime < 80;
+  const perceptionVisible = replayTime >= 20;
+  const predictionVisible = replayTime >= 50 && replayTime < 70;
+  const decisionVisible = replayTime >= 60;
+  const selectedPath = replayTime >= 60 ? 'M88 222 C185 222 270 222 340 180 S455 160 558 112' : 'M88 222 C220 222 350 222 558 112';
+  const scenePhase = replayTime < 20 ? 'initial' : replayTime < 45 ? 'transit' : replayTime < 80 ? 'hazard' : 'resolved';
+
+  const updateReplayTime = (value: number) => {
+    setReplayTime(Math.max(0, Math.min(120, value)));
+  };
+
+  return <section className="mission-replay" id="replay">
+    <div className="replay-heading">
+      <div>
+        <span className="reference-kicker">06 / MISSION REPLAY</span>
+        <h2>Watch a decision<br /><em>become an action.</em></h2>
+      </div>
+      <p>Scrub through an autonomous inspection mission. Every frame is a derived world state: what DERYK saw, predicted, selected, and executed.</p>
+    </div>
+
+    <div className="replay-console">
+      <div className={`replay-stage ${obstacleVisible ? 'is-blocked' : ''} replay-stage-${scenePhase}`}>
+        <div className="replay-stage-head"><span>SECTOR 04 / INDUSTRIAL INSPECTION</span><b>{String(Math.floor(replayTime / 60)).padStart(2, '0')}:{String(Math.floor(replayTime % 60)).padStart(2, '0')}</b></div>
+        <svg className="replay-map" viewBox="0 0 640 300" role="img" aria-label="Interactive autonomous drone mission replay">
+          <defs><pattern id="replay-grid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0V32" fill="none" stroke="rgba(130,173,255,.12)" strokeWidth="1" /></pattern><linearGradient id="replay-ground" x1="0" y1="0" x2="1" y2="1"><stop stopColor="#16283a" /><stop offset=".58" stopColor="#0d1a28" /><stop offset="1" stopColor="#07111c" /></linearGradient><linearGradient id="replay-roof" x1="0" y1="0" x2="0" y2="1"><stop stopColor="#607b92" stopOpacity=".9" /><stop offset="1" stopColor="#1b3045" stopOpacity=".95" /></linearGradient><linearGradient id="replay-wall" x1="0" y1="0" x2="1" y2="1"><stop stopColor="#294156" /><stop offset="1" stopColor="#142638" /></linearGradient><linearGradient id="replay-sky" x1="0" y1="0" x2="0" y2="1"><stop stopColor="#152d43" /><stop offset="1" stopColor="#0c1826" /></linearGradient><filter id="replay-glow"><feGaussianBlur stdDeviation="4" /></filter><filter id="replay-shadow"><feDropShadow dx="0" dy="8" stdDeviation="7" floodColor="#02070d" floodOpacity=".65" /></filter></defs>
+          <rect width="640" height="300" fill="url(#replay-ground)" />
+          <rect className="replay-sky-band" width="640" height="185" fill="url(#replay-sky)" />
+          <motion.rect className="replay-color-wash" width="640" height="300" initial={false} animate={{ opacity: replayTime < 20 ? 0.16 : replayTime >= 80 ? 0.07 : 0 }} transition={{ duration: 0.8 }} />
+          <path className="replay-site-line" d="M0 216H640M0 268H640M214 0V300M410 0V300" />
+          <path className="replay-perspective-grid" d="M0 212L320 172 640 212M0 254L320 220 640 254M0 282L320 255 640 282M320 172V300M320 220V300M320 255V300" />
+          <path className="replay-road" d="M0 242H640M0 246H640M236 0V300M240 0V300" />
+          <path className="replay-road-marking" d="M0 244H210M270 244H430M490 244H640" />
+          <g className="replay-building" filter="url(#replay-shadow)"><path d="M24 74L104 40 184 74v111H24Z" fill="url(#replay-wall)" /><path d="M24 74l80-34 80 34" fill="url(#replay-roof)" /><path d="M42 93h124v74H42zM56 110h28v28H56zM98 110h52v28H98zM56 148h94v9H56z" /><path className="replay-windows" d="M50 105h18v12H50zM76 105h18v12H76zM106 105h18v12h-18zM132 105h18v12h-18zM50 126h18v12H50zM76 126h18v12H76zM106 126h18v12h-18zM132 126h18v12h-18z" /><path d="M452 38l66-22 102 36v54H452Z" fill="url(#replay-wall)" /><path d="M452 38l66-22 102 36" fill="url(#replay-roof)" /><path className="replay-windows" d="M470 62h38v22h-38zM520 62h68v22h-68zM470 94h28v14h-28zM508 94h28v14h-28zM546 94h28v14h-28z" /><path d="M472 122h96v10h-96z" /></g>
+          <g className="replay-foreground-structure"><path d="M24 270h116v30H24z" /><path d="M40 270v-17h84v17" /><path d="M42 277h18v14H42zM70 277h18v14H70zM98 277h18v14H98z" /></g>
+          <text className="replay-map-label" x="30" y="62">ASSEMBLY HALL / A-04</text><text className="replay-map-label" x="454" y="28">LOGISTICS BAY</text>
+          <text className="replay-map-label replay-map-label-muted" x="260" y="194">SERVICE CORRIDOR</text>
+          <path className="replay-zone" d="M400 192h144v58H400z" />
+          <text className="replay-map-label" x="402" y="185">RESTRICTED ZONE</text>
+          <path className="replay-planned-path" d="M88 222 C220 222 350 222 558 112" />
+          <motion.path className="replay-selected-path" d={selectedPath} initial={false} animate={{ opacity: decisionVisible ? 1 : 0, pathLength: decisionVisible ? 1 : 0 }} transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }} />
+          {predictionVisible && <motion.g className="replay-predictions" initial={{ opacity: 0, scale: 0.96, transformOrigin: '270px 222px' }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.45, ease: 'easeOut' }}><path d="M270 222 C350 130 430 150 558 112" /><path d="M270 222 C340 255 420 210 558 112" /><text x="292" y="125">01</text><text x="418" y="230">03</text><text className="safe" x="382" y="153">02 / SAFE</text></motion.g>}
+          {obstacleVisible && <motion.g className="replay-obstacle" initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.38, ease: 'easeOut' }}><path d="M310 205v-64M286 205l24-64 24 64M294 178h32M288 190h44" /><text x="278" y="130">CRANE / 14.7m</text></motion.g>}
+          {perceptionVisible && <motion.g className="replay-object" initial={{ opacity: 0, scale: 0.9, transformOrigin: '214px 116px' }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5, ease: 'easeOut' }}><rect x="190" y="98" width="48" height="36" /><text x="190" y="88">VEHICLE / 98.2%</text></motion.g>}
+          <motion.g className="replay-drone" initial={false} animate={{ x: droneX, y: droneY }} transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}><ellipse className="replay-drone-shadow" cx="3" cy="12" rx="22" ry="5" /><path className="replay-drone-wing" d="M-5-2L-30 9-11 7 0 3 14 7 34 9 7-2Z" /><path className="replay-drone-body" d="M-11 1L-2-7 12 0 4 5Z" /><path className="replay-drone-tail" d="M-8 0L-15-8-7-4Z" /><circle className="replay-drone-light" cx="3" cy="0" r="2" /></motion.g>
+          <circle className="replay-target" cx="558" cy="112" r="8" /><text className="replay-target-label" x="550" y="92">TARGET</text>
+        </svg>
+        <AnimatePresence mode="wait" initial={false}><motion.div className="replay-event" key={replayEvent.label} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.25, ease: 'easeOut' }}><span>EVENT</span><strong>{replayEvent.label}</strong><small>{replayEvent.phase} / WORLD STATE {replayTime >= 30 ? 'KNOWN' : 'FORMING'}</small></motion.div></AnimatePresence>
+      </div>
+
+      <aside className="replay-sidebar">
+        <div className="replay-sidebar-head"><span>DERYK / MISSION STATE</span><i className={obstacleVisible ? 'warning' : ''} /></div>
+        <div className="replay-stat"><span>{obstacleVisible ? 'PATH STATUS' : replayTime >= 120 ? 'MISSION' : 'MISSION'}</span><b>{obstacleVisible ? 'BLOCKED' : replayTime >= 120 ? 'COMPLETE' : replayTime >= 10 ? 'TRANSIT' : 'STANDBY'}</b></div>
+        <div className="replay-stat"><span>ALTITUDE</span><b>{replayTime < 10 ? '0.0' : replayTime >= 70 ? '14.1' : '12.4'} m</b></div>
+        <div className="replay-stat"><span>VELOCITY</span><b>{replayTime < 10 ? '0.0' : replayTime >= 70 ? '5.1' : '4.2'} m/s</b></div>
+        <div className="replay-stat"><span>BATTERY</span><b>94%</b></div>
+        <div className="replay-stat"><span>{obstacleVisible ? 'REASON' : 'TRACKED OBJECTS'}</span><b>{obstacleVisible ? 'OBSTACLE' : perceptionVisible ? '07' : '00'}</b></div>
+        <div className="replay-known"><span>{obstacleVisible ? 'NEW INFORMATION' : 'DERYK KNEW'}</span><p>{obstacleVisible ? 'Crane detected 14.7 m ahead. Planned corridor is invalid.' : replayTime >= 30 ? 'Drone, target, boundaries, current trajectory.' : 'Mission intent and destination waypoint.'}</p></div>
+      </aside>
+
+      <div className="replay-controls">
+        <div className="replay-timeline-head"><span>MISSION TIMELINE</span><b>{String(Math.floor(replayTime / 60)).padStart(2, '0')}:{String(Math.floor(replayTime % 60)).padStart(2, '0')} / 02:00</b></div>
+        <div className="replay-range-wrap"><input aria-label="Scrub mission replay" type="range" min="0" max="120" step="1" value={replayTime} onChange={(event) => updateReplayTime(Number(event.target.value))} /><div className="replay-markers">{replayEvents.map((event) => <button key={event.time} className={replayTime >= event.time ? 'active' : ''} style={{ left: `${(event.time / 120) * 100}%` }} onClick={() => updateReplayTime(event.time)} aria-label={`Jump to ${event.label}`}><i /><small>{event.time === 0 ? '00:00' : event.time === 120 ? '02:00' : `00:${String(event.time).padStart(2, '0')}`}</small></button>)}</div></div>
+        <div className="replay-phases">{replayPhases.map((phase) => <span className={replayEvent.phase === phase ? 'active' : ''} key={phase}>{phase}</span>)}</div>
+      </div>
+    </div>
+  </section>;
+}
 
 function Mark() { return <img className="mc-logo" src="/images/deryk-logo.jpeg" alt="DERYK" />; }
 
@@ -155,6 +246,7 @@ function ReferenceSections() {
   return <>
     <section className="reference-principles"><div><span className="reference-kicker">TRUSTED ENGINEERING PRINCIPLES</span><h2>Built across<br />the autonomy stack.</h2></div><p>From foundational models to real-world applications, DERYK builds the technology infrastructure and environments for a more capable and beneficial future.</p><div className="principle-tags">{['AI SYSTEMS', 'WORLD MODELS', 'AGENTS', 'SIMULATION', 'ROBOTICS', 'SAFETY', 'EVALUATION', 'MEMORY'].map((item) => <span key={item}><CircleDot size={13} />{item}</span>)}</div></section>
     <section className="reference-thesis"><div><span className="reference-kicker">OUR THESIS</span><h2>AI has learned<br />to generate.<br /><em>The next step is<br />to understand and act.</em></h2></div><div className="thesis-copy"><p>The world is dynamic, complex, and physical. True intelligence requires more than language. It requires an understanding of the world, the ability to predict what happens next, and the capability to choose and execute actions safely.</p><a className="reference-link" href="#architecture">Our vision <ArrowRight size={14} /></a></div><div className="world-loop"><div className="loop-globe"><Mark /><small>INTELLIGENCE LOOP</small></div>{['OBSERVE', 'MODEL', 'DECIDE', 'LEARN', 'ACT', 'PREDICT'].map((item, index) => <span className={`world-loop-label label-${index}`} key={item}>{item}<small>{['Multimodal perception', 'World representation', 'Action intelligence', 'Continuous improvement', 'Safe execution', 'Possible futures'][index]}</small></span>)}</div></section>
+    <ImmersiveMissionReplay />
     <section className="reference-architecture" id="architecture"><div className="reference-heading"><span className="reference-kicker">OUR ARCHITECTURE</span><h2>The intelligence stack</h2><span>A unified architecture from perception to action.</span></div><div className="stack-layout"><div className="stack-worlds"><span>REAL-TIME<br />ENVIRONMENTS</span><i />PHYSICAL WORLD<br /><small>Robots, drones, machines</small><i />VIRTUAL WORLDS<br /><small>Simulation, games</small><i />COGNITIVE SYSTEMS<br /><small>Agents, tools, workflows</small></div><div className="stack-layers">{stack.map((item, index) => <div key={item} style={{ '--layer': index } as React.CSSProperties}><span>0{index + 1}</span><b>{item}</b><small>{['Multimodal inputs', 'Unified state', 'Understanding dynamics', 'Possible futures', 'What can we do', 'The best path', 'Validation and constraints', 'Request-ready action'][index]}</small></div>)}</div><div className="stack-result">ONE<br /><b>CONTINUOUS<br />LEARNING LOOP</b><ArrowRight size={18} /></div></div></section>
     <section className="reference-areas" id="worlds"><div className="reference-heading"><span className="reference-kicker">OUR INTELLIGENCE AREAS</span><h2>One architecture. Many worlds.</h2><span>Explore all areas <ArrowRight size={13} /></span></div><div className="area-cards">{areas.map(([name, copy], index) => <article key={name} className={`area-card area-image-${index}`}><div className="area-art" /><h3>{name}</h3><p>{copy}</p><ArrowRight size={15} /></article>)}</div></section>
     <section className="reference-action" id="capabilities"><div className="reference-heading"><span className="reference-kicker">FROM SENSORS TO ACTION</span><h2>From perception to real-world impact.</h2><span>Learn more <ArrowRight size={13} /></span></div><div className="action-steps">{['Sense', 'Understand', 'Predict', 'Decide', 'Execute'].map((item, index) => <div key={item}><span>0{index + 1}</span><div className={`action-art action-art-${index}`} /><h3>{item}</h3><p>{['Cameras, radar, LiDAR, GPS, telemetry', 'World models that create context', 'Future states, risks, and outcomes', 'Action models & planning', 'Rules, safety, deployment'][index]}</p></div>)}</div></section>
