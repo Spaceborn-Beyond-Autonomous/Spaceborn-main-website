@@ -67,6 +67,7 @@ Here is a quick overview of the directory layout:
 - **Vanilla CSS** with customizable animations and custom responsive layouts
 - Fully-responsive design (mobile-first transitions)
 - High-fidelity background videos & media components
+- Firebase
 
 ---
 
