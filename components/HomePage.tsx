@@ -387,9 +387,7 @@ export default function HomePage() {
 
       <main>
         {/* Page 1: Hero */}
-        <section className="landing-section section-left" id="releases">
-
-
+        <section className="landing-section section-left spaceborn-hero" id="releases">
           <div className="video-background-container">
             <video 
               ref={heroVideoRef}
@@ -397,27 +395,34 @@ export default function HomePage() {
               muted={isHeroMuted} 
               loop 
               playsInline 
+              preload="metadata"
+              aria-hidden="true"
               className="video-background"
             >
-              <source src={optimizeCloudinary("https://res.cloudinary.com/kpa1wv3h/video/upload/v1787235555/Video_Project_ppyupt.mp4")} type="video/mp4" />
+              <source src="/spaceborn-hero.mp4" type="video/mp4" />
             </video>
             <div className="video-overlay" />
           </div>
-          <div className="section-content">
-         <TypewriterHeading
-  as="h2"
-  className="section-title"
-  lines={['REAL-TIME INTELLIGENCE,', 'FROM EVERY', 'FLIGHT']}
-/>
-            <div className="hero-btn-group">
-              <a href="#platforms" className="btn font-mono">
-                explore
+          <div className="spaceborn-hero-content">
+            <div className="spaceborn-hero-copy">
+              <h1 className="spaceborn-hero-title">SPACEBORN</h1>
+              <p className="spaceborn-hero-eyebrow font-mono">AUTONOMOUS FLIGHT INTELLIGENCE</p>
+              <p className="spaceborn-hero-description">
+                Simulation-first autonomy for robots, drones, and the missions ahead.
+              </p>
+            </div>
+            <div className="spaceborn-hero-actions">
+              <a href="#platforms" className="spaceborn-scroll-link font-mono">
+                SCROLL TO EXPLORE
+                <svg aria-hidden="true" viewBox="0 0 24 24" fill="none">
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
               </a>
               <button 
                 onClick={() => setIsResumeModalOpen(true)} 
-                className="btn font-mono btn-primary"
+                className="spaceborn-resume-link font-mono"
               >
-                share your resume
+                SHARE YOUR RESUME
               </button>
             </div>
           </div>
@@ -663,7 +668,7 @@ export default function HomePage() {
       {/* Global Sound Control */}
       <button 
         onClick={handleToggleSound} 
-        className="global-sound-toggle"
+        className={`global-sound-toggle${activeSection === 'releases' ? ' global-sound-toggle-hero' : ''}`}
         aria-label={isHeroMuted ? "Unmute background audio" : "Mute background audio"}
       >
         {isHeroMuted ? (

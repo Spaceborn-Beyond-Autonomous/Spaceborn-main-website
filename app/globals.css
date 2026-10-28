@@ -105,8 +105,8 @@ a {
   align-items: center;
 
   width: 100%;
-  max-width: 1380px;
-  height: 64px;
+  max-width: 1320px;
+  height: 62px;
 
   padding: 0 28px;
   margin: 0 auto;
@@ -475,7 +475,7 @@ a {
   display: flex;
   align-items: stretch;
   list-style: none;
-  gap: 32px;
+  gap: 26px;
   margin: 0;
   padding: 0;
   height: 100%;
@@ -3139,5 +3139,232 @@ a {
   100% {
     opacity: 1;
     transform: translate3d(0, 0, 0);
+  }
+}
+
+.spaceborn-hero {
+  isolation: isolate;
+  width: auto;
+  height: calc(100svh - 124px);
+  min-height: 500px;
+  max-height: 920px;
+  margin: 100px 28px 24px;
+  padding: 32px;
+  align-items: stretch;
+  border: 1px solid rgba(241, 242, 236, 0.2);
+  border-radius: 24px;
+  background: #05070a;
+}
+
+.spaceborn-hero .video-background-container {
+  border-radius: inherit;
+}
+
+.spaceborn-hero .video-background {
+  filter: brightness(0.78);
+  mask-image: none !important;
+  -webkit-mask-image: none !important;
+}
+
+.spaceborn-hero .video-overlay {
+  background: linear-gradient(
+    180deg,
+    rgba(1, 1, 1, 0.35) 0%,
+    rgba(1, 1, 1, 0.3) 45%,
+    rgba(1, 1, 1, 0.68) 100%
+  ) !important;
+}
+
+.global-sound-toggle-hero {
+  top: 96px;
+  right: max(48px, calc((100vw - 1380px) / 2 + 48px));
+  bottom: auto;
+}
+
+.spaceborn-hero-content {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  width: auto;
+  min-height: 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  text-align: center;
+}
+
+.spaceborn-hero-copy {
+  width: min(100%, 960px);
+  margin: 0 auto;
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.8);
+}
+
+.spaceborn-hero-title {
+  width: 100%;
+  margin: 0;
+  color: #f7f7f3;
+  font-family: 'Ethnocentric', 'Inter', Arial, sans-serif;
+  font-size: clamp(3rem, 7vw, 6.75rem);
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  line-height: 1.05;
+  text-align: center;
+}
+
+.spaceborn-hero-eyebrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  margin: 24px 0 0;
+  color: rgba(241, 242, 236, 0.82);
+  font-size: clamp(0.7rem, 1.2vw, 0.95rem);
+  font-weight: 600;
+  letter-spacing: 0.28em;
+}
+
+.spaceborn-hero-eyebrow::before,
+.spaceborn-hero-eyebrow::after {
+  width: clamp(24px, 5vw, 64px);
+  height: 1px;
+  background: rgba(241, 242, 236, 0.38);
+  content: '';
+}
+
+.spaceborn-hero-description {
+  max-width: 680px;
+  margin: 20px auto 0;
+  color: rgba(241, 242, 236, 0.78);
+  font-size: clamp(0.95rem, 1.4vw, 1.1rem);
+  letter-spacing: 0.025em;
+  line-height: 1.8;
+}
+
+.spaceborn-hero-actions {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.spaceborn-scroll-link {
+  display: inline-flex;
+  min-height: 46px;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 0 22px;
+  border: 1px solid rgba(241, 242, 236, 0.28);
+  border-radius: 999px;
+  background: rgba(1, 1, 1, 0.55);
+  color: #f1f2ec;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  transition: background 180ms ease, border-color 180ms ease, transform 180ms ease;
+}
+
+.spaceborn-scroll-link:hover {
+  transform: translateY(-2px);
+  border-color: rgba(241, 242, 236, 0.65);
+  background: rgba(1, 1, 1, 0.8);
+}
+
+.spaceborn-scroll-link svg {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+}
+
+.spaceborn-resume-link {
+  padding: 4px 10px;
+  border: 0;
+  background: transparent;
+  color: rgba(241, 242, 236, 0.78);
+  cursor: pointer;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  transition: color 180ms ease;
+}
+
+.spaceborn-resume-link:hover {
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  .spaceborn-hero {
+    width: auto;
+    height: calc(100svh - 102px) !important;
+    min-height: min(500px, calc(100svh - 102px)) !important;
+    max-height: none;
+    margin: 82px 16px 20px;
+    padding: 24px 18px;
+    border-radius: 20px;
+    justify-content: center !important;
+  }
+
+  .spaceborn-hero .video-overlay {
+    background: linear-gradient(
+      180deg,
+      rgba(1, 1, 1, 0.35) 0%,
+      rgba(1, 1, 1, 0.25) 45%,
+      rgba(1, 1, 1, 0.65) 100%
+    ) !important;
+  }
+
+  .spaceborn-hero-content {
+    align-items: center !important;
+    justify-content: center;
+    padding: 24px 18px;
+    text-align: center !important;
+  }
+
+  .spaceborn-hero-copy {
+    width: 100%;
+  }
+
+  .spaceborn-hero-title {
+    font-size: clamp(2rem, 8vw, 3.5rem) !important;
+    letter-spacing: 0.04em;
+  }
+
+  .spaceborn-hero-eyebrow {
+    gap: 10px;
+    margin-top: 18px;
+    font-size: 0.66rem;
+    letter-spacing: 0.14em;
+    line-height: 1.7;
+  }
+
+  .spaceborn-hero-eyebrow::before,
+  .spaceborn-hero-eyebrow::after {
+    width: 18px;
+  }
+
+  .spaceborn-hero-description {
+    max-width: 340px;
+    margin: 14px auto 0;
+    font-size: 0.78rem;
+    letter-spacing: 0.03em;
+  }
+
+  .spaceborn-hero-actions {
+    bottom: 2px;
+    gap: 10px;
+  }
+
+  .global-sound-toggle-hero {
+    top: 99px;
+    right: 24px;
+    bottom: auto;
   }
 }
