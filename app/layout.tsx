@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: 'The Android of drone autonomy through simulation-first intelligence.',
   icons: {
     icon: 'https://res.cloudinary.com/dq9x4mk1y/image/upload/w_256,h_256,c_fill/v1782859776/WhatsApp_Image_2026-06-30_at_19.48.56_g8owa7.jpg',
-  }
+  },
 };
 
 export const viewport: Viewport = {
@@ -29,17 +29,22 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <link
-  rel="preload"
-  href="/fonts/Ethnocentric-Regular.otf"
-  as="font"
-  type="font/otf"
-  crossOrigin="anonymous"
-/>
+          rel="preload"
+          href="/fonts/Ethnocentric-Regular.otf"
+          as="font"
+          type="font/otf"
+          crossOrigin="anonymous"
+        />
       </head>
       <body>
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; } window.scrollTo(0, 0);",
+          }}
+        />
         <PageTransition>{children}</PageTransition>
       </body>
     </html>
   );
 }
-
