@@ -289,8 +289,8 @@ function usePlayWhen(videoRef: RefObject<HTMLVideoElement | null>, shouldPlay: b
 /* One shared observer, so everything entering view together (a refresh, a restored
    scroll position) is sorted and staggered top to bottom. The motion itself is CSS,
    which stays smooth while the page is still busy loading. */
-const LOAD_STAGGER_MS = 80;
-const LOAD_MAX_DELAY_MS = 640;
+const LOAD_STAGGER_MS = 40;
+const LOAD_MAX_DELAY_MS = 320;
 const loadCallbacks = new Map<Element, (delayMs: number) => void>();
 let loadObserver: IntersectionObserver | null = null;
 let nextLoadSlot = 0;
@@ -314,7 +314,7 @@ function getLoadObserver() {
           loadCallbacks.delete(entry.target);
         });
     },
-    { rootMargin: '0px 0px -8% 0px', threshold: 0.01 },
+    { rootMargin: '0px 0px 200px 0px', threshold: 0.01 },
   );
   return loadObserver;
 }
@@ -534,7 +534,7 @@ function ProductTile({ tile }: { tile: Tile }) {
   const isAria = tile.id === 'aria';
   const isGcs = tile.id === 'gcs';
 
-  // Continuous In-View Auto-Playback across ALL viewports (phone, tablet, laptop, desktop)
+  // Start playback well before the tile scrolls into view, so footage is ready on arrival
   useEffect(() => {
     if (!tile.video || reduceMotion) return;
 
@@ -553,11 +553,11 @@ function ProductTile({ tile }: { tile: Tile }) {
               .then(() => setPlaying(true))
               .catch(() => {});
           }
-          // Never stop playing once the user scrolls to it (Anduril continuous playback)
+          // Never stop playing once the user scrolls near it (continuous playback)
           observer.disconnect();
         }
       },
-      { threshold: 0.05 }
+      { threshold: 0, rootMargin: '800px 0px' }
     );
 
     observer.observe(el);

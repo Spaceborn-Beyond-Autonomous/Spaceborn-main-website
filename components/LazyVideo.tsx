@@ -2,6 +2,7 @@
 import { forwardRef, ReactNode, useRef, useEffect, useState } from 'react';
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 
+
 interface LazyVideoProps extends React.VideoHTMLAttributes<HTMLVideoElement> {
   children: ReactNode;
 }
@@ -14,7 +15,7 @@ export const LazyVideo = forwardRef<HTMLVideoElement, LazyVideoProps>(
     // Track intersection
     const entry = useIntersectionObserver(internalRef, {
       freezeOnceVisible: true,
-      rootMargin: '200px', // start loading before it completely enters the viewport
+      rootMargin: '1000px 0px', // start loading about one screen before it enters the viewport
     });
 
     useEffect(() => {
@@ -22,6 +23,13 @@ export const LazyVideo = forwardRef<HTMLVideoElement, LazyVideoProps>(
         setHasIntersected(true);
       }
     }, [entry?.isIntersecting]);
+
+    // Once the sources are added, tell the browser to start fetching right away
+    useEffect(() => {
+      if (hasIntersected) {
+        internalRef.current?.load();
+      }
+    }, [hasIntersected]);
 
     // Handle ref forwarding
     useEffect(() => {
@@ -33,7 +41,7 @@ export const LazyVideo = forwardRef<HTMLVideoElement, LazyVideoProps>(
     }, [forwardedRef, internalRef]);
 
     return (
-      <video ref={internalRef} {...props}>
+      <video ref={internalRef} preload="auto" {...props}>
         {hasIntersected ? children : null}
       </video>
     );
