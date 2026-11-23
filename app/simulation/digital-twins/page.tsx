@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Icon from '../../../components/Icon';
 import MobileMenu from '../../../components/MobileMenu';
 import Footer from '../../../components/Footer';
 
@@ -19,7 +20,7 @@ export default function DigitalTwinsPage() {
             />
           </Link>
 
-          <ul className="nav-links">
+          <ul className="nav-links desktop-only">
             <li><Link href="/#platforms">PLATFORMS</Link></li>
             <li><Link href="/#simulation">SIMULATION</Link></li>
             <li><Link href="/#systems">SYSTEMS</Link></li>
@@ -29,7 +30,7 @@ export default function DigitalTwinsPage() {
           </ul>
 
           <Link href="/#releases" className="btn font-mono desktop-only">
-            UPCOMING RELEASES →
+            UPCOMING RELEASES <Icon name="arrow-right" />
           </Link>
 
           <MobileMenu />
@@ -52,8 +53,7 @@ export default function DigitalTwinsPage() {
             alignItems: 'center', 
             paddingTop: '160px',  
             paddingBottom: '120px',
-            paddingLeft: '80px',  
-            paddingRight: '64px',
+            paddingInline: 'clamp(20px, 5vw, 80px)',
           }}
         >
           {/* Left-aligned container */}
@@ -70,7 +70,7 @@ export default function DigitalTwinsPage() {
               style={{
                 fontSize: 'clamp(36px, 5vw, 64px)',
                 lineHeight: '1.1',
-                letterSpacing: '2px',
+                overflowWrap: 'anywhere',
                 margin: '0 0 16px 0',
                 textTransform: 'uppercase',
               }}

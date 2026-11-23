@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback } from 'react';
 import Link from 'next/link';
+import Icon from './Icon';
 
 export type LaunchData = {
   project: string;
@@ -167,34 +168,26 @@ export default function UpcomingLaunches() {
       ref={containerRef}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onKeyDown={(event) => {
+        if (event.key === 'Escape' && isOpen) {
+          setIsOpen(false);
+          event.currentTarget.querySelector('button')?.focus();
+        }
+      }}
     >
       <button 
         type="button"
-        className="launches-btn"
+        className="nav-dropdown-btn"
         aria-expanded={isOpen}
-        aria-haspopup="true"
+        aria-controls={isOpen ? "navbar-releases" : undefined}
         onClick={() => setIsOpen(!isOpen)}
       >
-        <span className="launches-btn-text">RELEASES</span>
-        <svg
-          width="8"
-          height="5"
-          viewBox="0 0 8 5"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className={`chevron ${isOpen ? 'open' : ''}`}
-          aria-hidden="true"
-        >
-          <path d="M1 1L4 4L7 1" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round"/>
-        </svg>
+        <span>RELEASES</span>
+        <Icon name="chevron-down" className={`nav-chevron${isOpen ? ' is-open' : ''}`} />
       </button>
 
       {isOpen && (
-        <div className="launches-dropdown-panel" role="region" aria-label="Upcoming Launches">
-          <div className="launches-panel-header">
-            <span className="launches-panel-eyebrow">[SCHEDULED FLIGHTS]</span>
-            <span className="launches-panel-count">{DEFAULT_LAUNCHES.length} TARGETS</span>
-          </div>
+        <div className="launches-dropdown-panel" id="navbar-releases" role="region" aria-label="Upcoming Launches">
           <div className="launches-list">
             {dropdownItems.map((launch, index) => (
               <div className="launch-item" key={index}>
@@ -211,7 +204,7 @@ export default function UpcomingLaunches() {
           <div className="launches-footer">
             <Link href="/launches" className="all-launches-link" onClick={() => setIsOpen(false)}>
               <span>ALL RELEASES</span>
-              <span className="link-arrow" aria-hidden="true">→</span>
+              <Icon name="arrow-right" className="link-arrow" />
             </Link>
           </div>
         </div>

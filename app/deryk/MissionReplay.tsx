@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
-import { ArrowDown, CircleDot } from 'lucide-react';
+import Icon from '../../components/Icon';
 
 const events = [
   { time: 0, label: 'MISSION INITIALIZED', phase: 'OBSERVE' },
@@ -407,9 +407,9 @@ export default function MissionReplay() {
       </header>
 
       <div className="replay-copy">
-        <span className="replay-eyebrow">MISSION REPLAY / OPIP-2048</span>
         <h2>See the world.<br /><em>Change the plan.</em></h2>
         <div className="replay-event" key={replayEvent.label}>
+          <span>MISSION OPIP-2048</span>
           <span>{replayEvent.phase} / WORLD STATE {replayTime >= 30 ? 'KNOWN' : 'FORMING'}</span>
           <strong>{replayEvent.label}</strong>
         </div>
@@ -421,11 +421,11 @@ export default function MissionReplay() {
         <div className="replay-stat"><span>ALTITUDE</span><b>{droneAltitude} m</b></div>
         <div className="replay-stat"><span>VELOCITY</span><b>{replayTime >= 70 ? '5.1' : replayTime >= 10 ? '4.2' : '0.0'} m/s</b></div>
         <div className="replay-stat"><span>TRACKED</span><b>{replayTime >= 20 ? '07' : '00'}</b></div>
-        <div className="replay-safety"><CircleDot size={13} /><span>{obstacleVisible ? 'CRANE DETECTED / SAFE ROUTE SELECTED' : 'SIMULATED ENVIRONMENT / NO LIVE HARDWARE'}</span></div>
+        <div className="replay-safety"><Icon name="circle-dot" size={13} /><span>{obstacleVisible ? 'CRANE DETECTED / SAFE ROUTE SELECTED' : 'SIMULATED ENVIRONMENT / NO LIVE HARDWARE'}</span></div>
       </aside>
 
       <div className="replay-bottom">
-        <div className="replay-scroll-label"><ArrowDown size={14} /><span>SCROLL TO FLY</span><small>THE MISSION UNFOLDS WITH YOU</small></div>
+        <div className="replay-scroll-label"><Icon name="arrow-down" size={14} /><span>SCROLL TO FLY</span><small>THE MISSION UNFOLDS WITH YOU</small></div>
         <div className="replay-timeline">
           <div className="replay-timeline-track"><i />{events.map((event) => <button key={event.time} type="button" style={{ left: `${(event.time / 120) * 100}%` }} className={replayTime >= event.time ? 'active' : ''} onClick={() => jumpTo(event.time)} aria-label={`Jump to ${event.label}`}><i /><span>{event.label}</span></button>)}</div>
           <div className="replay-phases">{phases.map((phase) => <span className={replayEvent.phase === phase ? 'active' : ''} key={phase}>{phase}</span>)}</div>

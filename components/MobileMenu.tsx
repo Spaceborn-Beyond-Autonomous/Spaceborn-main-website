@@ -1,12 +1,14 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import Link from 'next/link';
+import Icon from './Icon';
 import { DROPDOWN_NAV, DropdownKey } from './Navbar';
 import { DEFAULT_LAUNCHES, sortLaunches, formatTimeLocal } from './UpcomingLaunches';
 
 export default function MobileMenu({ isCareer }: { isCareer?: boolean }) {
+  const dialogRef = useRef<HTMLDialogElement>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [openAccordions, setOpenAccordions] = useState<Record<string, boolean>>({});
@@ -18,15 +20,17 @@ export default function MobileMenu({ isCareer }: { isCareer?: boolean }) {
   }, []);
 
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
+    const dialog = dialogRef.current;
+    if (!isOpen || !dialog) return;
+
+    const previousOverflow = document.body.style.overflow;
+    dialog.showModal();
+    document.body.style.overflow = 'hidden';
     return () => {
-      document.body.style.overflow = '';
+      dialog.close();
+      document.body.style.overflow = previousOverflow;
     };
-  }, [isOpen]);
+  }, [isOpen, mounted]);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -76,6 +80,7 @@ export default function MobileMenu({ isCareer }: { isCareer?: boolean }) {
   }, [isOpen]);
 
   const toggleMenu = () => {
+    if (isOpen) dialogRef.current?.close();
     setIsOpen(!isOpen);
     // Reset accordion states when opening/closing menu
     setOpenAccordions({});
@@ -94,7 +99,8 @@ export default function MobileMenu({ isCareer }: { isCareer?: boolean }) {
   };
 
   const overlayContent = (
-    <div className="mobile-menu-overlay">
+    <dialog ref={dialogRef} id="mobile-menu" className="mobile-menu-overlay" aria-label="Navigation"
+      onCancel={(event) => { event.preventDefault(); toggleMenu(); }}>
       <div className="mobile-menu-header">
         <Link href="/" className="logo" onClick={toggleMenu}>
           <img
@@ -105,7 +111,7 @@ export default function MobileMenu({ isCareer }: { isCareer?: boolean }) {
             height={18}
           />
         </Link>
-        <button className="close-menu" onClick={toggleMenu} aria-label="Close menu">✕</button>
+        <button className="close-menu" onClick={toggleMenu} aria-label="Close menu"><Icon name="xmark" /></button>
       </div>
       <div className="mobile-menu-content">
         <ul className="mobile-nav-links">
@@ -127,14 +133,13 @@ export default function MobileMenu({ isCareer }: { isCareer?: boolean }) {
                     <button 
                       className={`mobile-accordion-trigger ${isExpanded ? 'active' : ''}`}
                       onClick={() => toggleAccordion(key)}
+                      aria-expanded={isExpanded} aria-controls={`mobile-nav-${key}`}
                     >
                       {nav.label}
-                      <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg" className={`chevron ${isExpanded ? 'open' : ''}`}>
-                        <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
+                      <Icon name="chevron-down" className={`chevron ${isExpanded ? 'open' : ''}`} />
                     </button>
                     
-                    <div className={`mobile-submenu-wrapper ${isExpanded ? 'open' : ''}`}>
+                    <div id={`mobile-nav-${key}`} inert={!isExpanded} className={`mobile-submenu-wrapper ${isExpanded ? 'open' : ''}`}>
                       <ul className="mobile-submenu-list">
                         {nav.items.map((item) => (
                           <li key={item.label}>
@@ -172,14 +177,13 @@ export default function MobileMenu({ isCareer }: { isCareer?: boolean }) {
                 <button 
                   className={`mobile-accordion-trigger ${isLaunchesExpanded ? 'active' : ''}`}
                   onClick={toggleLaunches}
+                  aria-expanded={isLaunchesExpanded} aria-controls="mobile-releases"
                 >
                   RELEASES
-                  <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg" className={`chevron ${isLaunchesExpanded ? 'open' : ''}`}>
-                    <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
+                  <Icon name="chevron-down" className={`chevron ${isLaunchesExpanded ? 'open' : ''}`} />
                 </button>
                 
-                <div className={`mobile-submenu-launches ${isLaunchesExpanded ? 'open' : ''}`}>
+                <div id="mobile-releases" inert={!isLaunchesExpanded} className={`mobile-submenu-launches ${isLaunchesExpanded ? 'open' : ''}`}>
                   <div className="mobile-launches-list">
                     {launches.map((launch, index) => (
                       <div className="mobile-launch-item" key={index}>
@@ -195,17 +199,7 @@ export default function MobileMenu({ isCareer }: { isCareer?: boolean }) {
                   </div>
                   <div className="mobile-launches-footer">
                     <Link href="/launches" className="mobile-all-launches-link" onClick={toggleMenu}>
-                      <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" className="grid-icon">
-                        <circle cx="2" cy="2" r="1.5"/>
-                        <circle cx="8" cy="2" r="1.5"/>
-                        <circle cx="14" cy="2" r="1.5"/>
-                        <circle cx="2" cy="8" r="1.5"/>
-                        <circle cx="8" cy="8" r="1.5"/>
-                        <circle cx="14" cy="8" r="1.5"/>
-                        <circle cx="2" cy="14" r="1.5"/>
-                        <circle cx="8" cy="14" r="1.5"/>
-                        <circle cx="14" cy="14" r="1.5"/>
-                      </svg>
+                      <Icon name="table-cells-large" className="grid-icon" />
                       ALL RELEASES
                     </Link>
                   </div>
@@ -215,15 +209,14 @@ export default function MobileMenu({ isCareer }: { isCareer?: boolean }) {
           )}
         </ul>
       </div>
-    </div>
+    </dialog>
   );
 
   return (
     <>
-      <button className="hamburger" onClick={toggleMenu} aria-label="Toggle menu">
-        <span className="hamburger-line" />
-        <span className="hamburger-line" />
-        <span className="hamburger-line" />
+      <button className="hamburger" onClick={toggleMenu} aria-label="Toggle menu"
+        aria-expanded={isOpen} aria-controls={isOpen ? "mobile-menu" : undefined}>
+        <Icon name="bars" />
       </button>
       {isOpen && mounted && createPortal(overlayContent, document.body)}
     </>

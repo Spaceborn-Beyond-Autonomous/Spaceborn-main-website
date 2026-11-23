@@ -1,4 +1,4 @@
-import { google } from 'googleapis';
+import { auth as googleAuth, drive } from '@googleapis/drive';
 
 const DRIVE_FOLDER_MIME_TYPE = 'application/vnd.google-apps.folder';
 const DRIVE_SCOPE = 'https://www.googleapis.com/auth/drive';
@@ -13,10 +13,10 @@ function getOAuthDriveClient() {
     return null;
   }
 
-  const auth = new google.auth.OAuth2(clientId, clientSecret, redirectUri);
+  const auth = new googleAuth.OAuth2(clientId, clientSecret, redirectUri);
   auth.setCredentials({ refresh_token: refreshToken });
 
-  return google.drive({ version: 'v3', auth });
+  return drive({ version: 'v3', auth });
 }
 
 function getServiceAccountDriveClient() {
@@ -33,13 +33,13 @@ function getServiceAccountDriveClient() {
     );
   }
 
-  const auth = new google.auth.JWT({
+  const auth = new googleAuth.JWT({
     email: clientEmail,
     key: privateKey.replace(/\\n/g, '\n'),
     scopes: [DRIVE_SCOPE],
   });
 
-  return google.drive({ version: 'v3', auth });
+  return drive({ version: 'v3', auth });
 }
 
 export function getDriveClient() {

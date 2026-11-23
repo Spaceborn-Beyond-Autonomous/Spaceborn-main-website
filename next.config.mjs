@@ -1,6 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: process.env.NEXT_STANDALONE === '1' ? 'standalone' : undefined,
   poweredByHeader: false,
+  // TypeScript 7 ships a native checker without the JavaScript compiler API.
+  experimental: { useTypeScriptCli: true },
   async headers() {
     return [
       {

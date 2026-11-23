@@ -1,32 +1,61 @@
-name: "CI Build & Test"
+name: Spaceborn CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [main, redesign/trial-1]
   pull_request:
-    branches: [ "main" ]
+    branches: [main, redesign/trial-1]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    shell: bash
+
+concurrency:
+  group: spaceborn-ci-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  build:
-    name: Build & Typecheck
+  verify:
+    name: Typecheck and test the Docker image
     runs-on: ubuntu-latest
     timeout-minutes: 15
-
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: 20
-        cache: 'npm'
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
 
-    - name: Install dependencies
-      run: npm ci
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm audit --omit=dev --audit-level=high
 
-    - name: TypeScript typecheck
-      run: npx tsc --noEmit
+      - name: Build production image
+        env:
+          NEXT_PUBLIC_LAUNCHES_JSON_URL: ${{ vars.NEXT_PUBLIC_LAUNCHES_JSON_URL }}
+        run: |
+          docker build \
+            --build-arg NEXT_PUBLIC_LAUNCHES_JSON_URL \
+            --tag "spaceborn:$GITHUB_SHA" .
 
-    - name: Production build
-      run: npm run build
+      - name: Smoke-test the running image
+        run: |
+          set -euo pipefail
+          container="$(docker run -d -p 127.0.0.1:3000:3000 "spaceborn:$GITHUB_SHA")"
+          trap 'docker logs "$container"; docker rm -f "$container" >/dev/null' EXIT
+          curl --fail --silent --show-error --max-time 3 \
+            --retry 10 --retry-all-errors --retry-delay 1 http://127.0.0.1:3000/ > /tmp/spaceborn-home.html
+          grep -q '<main' /tmp/spaceborn-home.html
+          curl --fail --silent --show-error http://127.0.0.1:3000/company/about > /tmp/spaceborn-about.html
+          grep -q '<h1' /tmp/spaceborn-about.html
+          status="$(curl --fail --silent --show-error --range 0-127 --output /dev/null \
+            --write-out '%{http_code}' http://127.0.0.1:3000/media/home/hero-sb1.mp4)"
+          test "$status" = 206
+          test "$(docker exec "$container" id -u)" != 0

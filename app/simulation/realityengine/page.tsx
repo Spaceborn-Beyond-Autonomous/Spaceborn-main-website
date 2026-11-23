@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Icon from '../../../components/Icon';
 
 const skills = [
   {
@@ -304,7 +305,7 @@ export default function RealityEnginePage() {
                   color: "#fff",
                 }}
               >
-                Use Skill →
+                Use Skill <Icon name="arrow-right" />
               </span>
             </div>
           ))}

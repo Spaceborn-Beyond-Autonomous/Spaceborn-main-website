@@ -1,0 +1,17 @@
+# Local project knowledge: source and authored docs only.
+node_modules/
+.next/
+out/
+build/
+coverage/
+graphify-out/
+.graphify-cache/
+public/
+package-lock.json
+.env*
+*.pem
+*.key
+uploads/
+resumes/
+spaceborn-resumes/
+downloaded_assets/

@@ -11,11 +11,9 @@ export default function PageTransition({ children }: { children: React.ReactNode
     setIsTransitioning(true);
     const timer = setTimeout(() => {
       setIsTransitioning(false);
-    }, 450); // Matches the css transition timing
+    }, 240);
     return () => clearTimeout(timer);
   }, [pathname]);
-
-
 
   return (
     <div className={`page-transition-container ${isTransitioning ? 'page-is-transitioning' : ''}`}>

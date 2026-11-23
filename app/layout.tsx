@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import PageTransition from '../components/PageTransition';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 import './globals.css';
 
 export const metadata: Metadata = {

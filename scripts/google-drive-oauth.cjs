@@ -1,4 +1,4 @@
-const { google } = require('googleapis');
+const { auth: googleAuth } = require('@googleapis/drive');
 const fs = require('fs');
 const path = require('path');
 const readline = require('readline/promises');
@@ -51,7 +51,7 @@ async function main() {
   const clientId = requireEnv('GOOGLE_DRIVE_CLIENT_ID');
   const clientSecret = requireEnv('GOOGLE_DRIVE_CLIENT_SECRET');
   const redirectUri = process.env.GOOGLE_DRIVE_REDIRECT_URI || 'http://localhost:3000/api/google-drive/callback';
-  const auth = new google.auth.OAuth2(clientId, clientSecret, redirectUri);
+  const auth = new googleAuth.OAuth2(clientId, clientSecret, redirectUri);
 
   const authUrl = auth.generateAuthUrl({
     access_type: 'offline',

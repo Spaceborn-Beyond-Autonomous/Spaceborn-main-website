@@ -79,3 +79,8 @@ scripts/upload_*.mjs
 scripts/extract_*.mjs
 *.docx
 
+# Local knowledge graph, extraction cache, and generated Obsidian vault
+/graphify-out/
+/.graphify_cache/
+/.graphify-cache/
+

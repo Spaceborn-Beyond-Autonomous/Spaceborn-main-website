@@ -1,0 +1,34 @@
+@import "tailwindcss/utilities.css" layer(utilities) source(none);
+
+/* Generate the homepage components without Preflight or unrelated utilities. */
+@source inline("du-{alert,alert-error,aura,aura-glow,btn,btn-ghost,btn-link,btn-outline,btn-primary,btn-sm,btn-square,card,card-body,card-border,card-side,card-title,hero,hero-content,hero-overlay,input,modal,modal-box,tab,tab-active,table,tabs,tabs-box,textarea}");
+
+@plugin "daisyui" {
+  themes: false;
+  prefix: "du-";
+  include: alert, aura, button, card, hero, input, modal, tab, table, textarea;
+  logs: false;
+}
+
+@plugin "daisyui/theme" {
+  name: "spaceborn";
+  color-scheme: dark;
+  --color-base-100: #0c0d0e;
+  --color-base-200: #202124;
+  --color-base-300: #323438;
+  --color-base-content: #f4f4f5;
+  --color-primary: #ffffff;
+  --color-primary-content: #000000;
+  --color-neutral: #141618;
+  --color-neutral-content: #f4f4f5;
+  --color-error: #fca5a5;
+  --color-error-content: #270707;
+  --radius-selector: 0.5rem;
+  --radius-field: 0.5rem;
+  --radius-box: 0.75rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
+}

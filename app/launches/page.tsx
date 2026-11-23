@@ -4,6 +4,8 @@
 import { useEffect, useState } from 'react';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
+import Icon from '../../components/Icon';
+import LoopingVideo from '../../components/LoopingVideo';
 import {
   DEFAULT_LAUNCHES,
   LaunchData,
@@ -410,10 +412,6 @@ export default function LaunchesPage() {
             </div>
 
             <div className="launch-card-top">
-              <span className="launch-card-index font-mono">
-                {String(index + 1).padStart(2, '0')}
-              </span>
-
               <span
                 className={`launch-card-status font-mono ${
                   isPast
@@ -460,15 +458,8 @@ export default function LaunchesPage() {
         <section className="launches-hero">
           <div className="launches-hero-bg">
             {upcomingLaunches[0]?.video ? (
-              <video
-                className="rocket-hero-video"
-                src="/launches/swarm%20fleet%201.mp4"
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="auto"
-              />
+              <LoopingVideo className="rocket-hero-video" src={upcomingLaunches[0].video}
+                poster={upcomingLaunches[0].image} aria-hidden="true" />
             ) : (
               <img
                 src="https://res.cloudinary.com/bidpa4j5/image/upload/v1789973901/WhatsApp_Image_2026-08-03_at_6.52.05_PM_1.jpg"
@@ -503,13 +494,8 @@ export default function LaunchesPage() {
               href="#upcoming-launches"
               className="launches-watch-btn font-mono"
             >
-              EXPLORE LAUNCHES <span>↘</span>
+              EXPLORE LAUNCHES <Icon name="arrow-down" />
             </a>
-          </div>
-
-          <div className="hero-bottom-label font-mono">
-            <span>SPACEBORN</span>
-            <span>MISSION CONTROL / 2026</span>
           </div>
         </section>
 
@@ -522,20 +508,13 @@ export default function LaunchesPage() {
           >
             <div className="section-heading-row">
               <div>
-                <p className="section-eyebrow font-mono">
-               
-                </p>
-
                 <h2 className="launches-section-title font-ethno">
                   UPCOMING LAUNCHES
                 </h2>
               </div>
 
               <span className="section-count font-mono">
-                {String(upcomingLaunches.length).padStart(
-                  2,
-                  '0'
-                )}{' '}
+                {upcomingLaunches.length}{' '}
                 ITEMS
               </span>
             </div>
@@ -551,7 +530,7 @@ export default function LaunchesPage() {
                 }
                 aria-label="Previous launch"
               >
-                ←
+                <Icon name="arrow-left" />
               </button>
 
               <div className="carousel-stage">
@@ -565,10 +544,6 @@ export default function LaunchesPage() {
                     }`}
                   >
                     <div className="view-more-content">
-                      <span className="view-more-label font-mono">
-                        SPACEBORN / MISSION ARCHIVE
-                      </span>
-
                       <h3 className="font-ethno">
                         VIEW MORE
                       </h3>
@@ -582,7 +557,7 @@ export default function LaunchesPage() {
                         onClick={handleViewMore}
                         className="view-more-action font-mono"
                       >
-                        EXPLORE ALL LAUNCHES ↗
+                        EXPLORE ALL LAUNCHES <Icon name="arrow-up-right-from-square" />
                       </button>
                     </div>
                   </div>
@@ -618,7 +593,7 @@ export default function LaunchesPage() {
                 disabled={isSliding}
                 aria-label="Next launch"
               >
-                →
+                <Icon name="arrow-right" />
               </button>
             </div>
 
@@ -626,11 +601,7 @@ export default function LaunchesPage() {
               <span>
                 {isViewMoreCard
                   ? 'VIEW MORE'
-                  : `${String(
-                      activeLaunchIndex + 1
-                    ).padStart(2, '0')} / ${String(
-                      carouselLaunches.length
-                    ).padStart(2, '0')}`}
+                  : `${activeLaunchIndex + 1} / ${carouselLaunches.length}`}
               </span>
 
               <div className="carousel-progress-track">
@@ -684,10 +655,6 @@ export default function LaunchesPage() {
         </div>
 
         <div className="launch-card-top">
-          <span className="launch-card-index">
-            {String(index + 1).padStart(2, "0")}
-          </span>
-
           <span className="launch-card-status status-past">
             <span className="status-dot" />
             COMPLETED
@@ -722,20 +689,13 @@ export default function LaunchesPage() {
           <section className="launches-section past-section">
             <div className="section-heading-row">
               <div>
-                <p className="section-eyebrow font-mono">
-                
-                </p>
-
                 <h2 className="launches-section-title font-ethno">
                   PAST LAUNCHES
                 </h2>
               </div>
 
               <span className="section-count font-mono">
-                {String(pastLaunches.length).padStart(
-                  2,
-                  '0'
-                )}{' '}
+                {pastLaunches.length}{' '}
                 ITEMS
               </span>
             </div>
@@ -762,9 +722,7 @@ export default function LaunchesPage() {
                         INITIAL_VISIBLE_COUNT
                       })`}
 
-                  <span>
-                    {showAllPast ? '↑' : '↓'}
-                  </span>
+                  <Icon name={showAllPast ? 'arrow-up' : 'arrow-down'} />
                 </button>
               </div>
             )}
@@ -1083,20 +1041,6 @@ export default function LaunchesPage() {
           font-size: 17px;
         }
 
-        .hero-bottom-label {
-          position: absolute;
-          z-index: 1;
-          bottom: 25px;
-          left: 8%;
-          right: 8%;
-          display: flex;
-          justify-content: space-between;
-          gap: 15px;
-          color: #a0a496;
-          font-size: 9px;
-          letter-spacing: 0.12em;
-        }
-
         .launches-container {
           width: min(1180px, 84%);
           margin: 0 auto;
@@ -1118,13 +1062,6 @@ export default function LaunchesPage() {
           justify-content: space-between;
           gap: 20px;
           margin-bottom: 28px;
-        }
-
-        .section-eyebrow {
-          margin: 0 0 12px;
-          color: var(--lime);
-          font-size: 10px;
-          letter-spacing: 0.15em;
         }
 
         .launches-section-title {
@@ -1378,12 +1315,6 @@ export default function LaunchesPage() {
           letter-spacing: 0.08em;
         }
 
-        .view-more-label {
-          color: var(--lime);
-          font-size: 10px;
-          letter-spacing: 0.15em;
-        }
-
         .view-more-content p {
           color: #aaa;
           margin-bottom: 28px;
@@ -1476,14 +1407,8 @@ export default function LaunchesPage() {
         .launch-card-top {
           display: flex;
           align-items: center;
-          justify-content: space-between;
+          justify-content: flex-end;
           gap: 10px;
-        }
-
-        .launch-card-index {
-          color: #74796d;
-          font-size: 11px;
-          letter-spacing: 0.08em;
         }
 
         .launch-card-status {
@@ -1607,11 +1532,6 @@ export default function LaunchesPage() {
             padding-left: 6%;
             padding-right: 6%;
           }
-
-          .hero-bottom-label {
-            left: 6%;
-            right: 6%;
-          }
         }
 
         @media (max-width: 600px) {
@@ -1627,11 +1547,6 @@ export default function LaunchesPage() {
 
           .launches-hero-subtitle {
             font-size: 9px;
-          }
-
-          .hero-bottom-label {
-            font-size: 8px;
-            bottom: 18px;
           }
 
           .launches-container {

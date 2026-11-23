@@ -3,6 +3,7 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
 import Link from 'next/link';
 import MobileMenu from './MobileMenu';
+import Icon from './Icon';
 import UpcomingLaunches from './UpcomingLaunches';
 
 export type DropdownKey = 'platforms' | 'simulation' | 'systems' | 'industries' | 'company';
@@ -76,7 +77,7 @@ export const DROPDOWN_NAV: Record<DropdownKey, { label: string; items: NavItem[]
 
 const CLOSE_DELAY_MS = 150;
 
-export default function Navbar() {
+export default function Navbar({ hideOnScroll = true }: { hideOnScroll?: boolean }) {
   const [openDropdown, setOpenDropdown] = useState<DropdownKey | null>(null);
   const [hidden, setHidden] = useState(false);
   const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -84,6 +85,8 @@ export default function Navbar() {
   const lastScrollY = useRef(0);
 
   useEffect(() => {
+    if (!hideOnScroll) return;
+
     const handleScroll = () => {
       const currentY = window.scrollY;
       if (openDropdown) {
@@ -100,7 +103,7 @@ export default function Navbar() {
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [openDropdown]);
+  }, [hideOnScroll, openDropdown]);
 
   const clearCloseTimer = useCallback(() => {
     if (closeTimerRef.current) {
@@ -135,6 +138,10 @@ export default function Navbar() {
   useEffect(() => {
     const handleKeyDown = (e: globalThis.KeyboardEvent) => {
       if (e.key === 'Escape') {
+        const panel = navRef.current?.querySelector('.nav-dropdown-panel.is-open');
+        if (panel?.contains(document.activeElement)) {
+          panel.parentElement?.querySelector<HTMLButtonElement>('button')?.focus();
+        }
         setOpenDropdown(null);
       }
     };
@@ -165,7 +172,7 @@ export default function Navbar() {
           />
         </Link>
 
-        <ul className="nav-links desktop-only" role="menubar">
+        <ul className="nav-links desktop-only">
           {(Object.keys(DROPDOWN_NAV) as DropdownKey[]).map((key) => {
             const isOpen = openDropdown === key;
             const isWide = key === 'industries' || DROPDOWN_NAV[key].items.length > 6;
@@ -176,62 +183,46 @@ export default function Navbar() {
                 className={`nav-dropdown-trigger${isOpen ? ' is-active' : ''}`}
                 onMouseEnter={() => openPanel(key)}
                 onMouseLeave={scheduleClose}
-                role="none"
               >
                 <button
                   type="button"
                   className="nav-dropdown-btn"
                   aria-expanded={isOpen}
-                  aria-haspopup="true"
+                  aria-controls={`navbar-${key}`}
                   onClick={() => togglePanel(key)}
                 >
                   <span>{DROPDOWN_NAV[key].label}</span>
-                  <svg
-                    className={`nav-chevron ${isOpen ? 'is-open' : ''}`}
-                    width="8"
-                    height="5"
-                    viewBox="0 0 8 5"
-                    fill="none"
-                    aria-hidden="true"
-                  >
-                    <path
-                      d="M1 1L4 4L7 1"
-                      stroke="currentColor"
-                      strokeWidth="1.25"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
+                  <Icon name="chevron-down" className={`nav-chevron${isOpen ? ' is-open' : ''}`} />
                 </button>
 
                 <div
                   className={`nav-dropdown-panel${isOpen ? ' is-open' : ''}${isWide ? ' is-wide' : ''}`}
                   onMouseEnter={clearCloseTimer}
                   onMouseLeave={scheduleClose}
-                  aria-hidden={!isOpen}
-                  role="menu"
+                  id={`navbar-${key}`}
+                  inert={!isOpen}
                 >
                   <div className="nav-dropdown-inner">
-                    <ul className={`nav-dropdown-list${isWide ? ' is-grid' : ''}`} role="none">
+                    <ul className={`nav-dropdown-list${isWide ? ' is-grid' : ''}`}>
                       {DROPDOWN_NAV[key].items.map((item) => (
-                        <li key={item.label} className="nav-dropdown-item" role="none">
+                        <li key={item.label} className="nav-dropdown-item">
                           {item.href.startsWith('/') ? (
                             <Link
                               href={item.href}
-                              role="menuitem"
+
                               onClick={() => setOpenDropdown(null)}
                             >
                               <span className="nav-item-label">{item.label}</span>
-                              <span className="nav-item-arrow" aria-hidden="true">→</span>
+                              <span className="nav-item-arrow" aria-hidden="true"><Icon name="arrow-right" /></span>
                             </Link>
                           ) : (
                             <a
                               href={item.href}
-                              role="menuitem"
+
                               onClick={() => setOpenDropdown(null)}
                             >
                               <span className="nav-item-label">{item.label}</span>
-                              <span className="nav-item-arrow" aria-hidden="true">→</span>
+                              <span className="nav-item-arrow" aria-hidden="true"><Icon name="arrow-right" /></span>
                             </a>
                           )}
                         </li>
@@ -242,28 +233,26 @@ export default function Navbar() {
               </li>
             );
           })}
-          <li className="nav-standalone-item" role="none">
+          <li className="nav-standalone-item">
             <a
               href="https://spaceborn-web.vercel.app/"
               target="_blank"
               rel="noopener noreferrer"
               className="nav-standalone-link"
-              role="menuitem"
             >
               <span>DERYK</span>
-              <span className="nav-external-arrow" aria-hidden="true">↗</span>
+              <span className="nav-external-arrow" aria-hidden="true"><Icon name="arrow-right" /></span>
             </a>
           </li>
-          <li className="nav-standalone-item" role="none">
+          <li className="nav-standalone-item">
             <a
               href="https://khonsu.in"
               target="_blank"
               rel="noopener noreferrer"
               className="nav-standalone-link"
-              role="menuitem"
             >
               <span>KHONSU</span>
-              <span className="nav-external-arrow" aria-hidden="true">↗</span>
+              <span className="nav-external-arrow" aria-hidden="true"><Icon name="arrow-right" /></span>
             </a>
           </li>
         </ul>
